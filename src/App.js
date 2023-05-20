@@ -18,28 +18,26 @@ function App() {
     }, [])
 
     return (
-        <div>
-            <header>
-                <h1 className='text-7xl text-center'>Pokemon Battler</h1>
-            </header>
+        <div className='max-h-screen grid grid-rows-[auto_3fr_2fr]'>
+            <h1 className='text-7xl text-center'>Pokemon Battler</h1>
 
-            <main>
-
-				
-                {/* Todo: turn this into PokemonPickerList component */}
-                <div className='grid grid-cols-4 gap-2'>
-                    {pokemonList &&
-                        pokemonList.map((pokemon, index) => (
-                            <div className='flex items-center justify-center rounded bg-red-500/10 hover:bg-red-500/20'>
-                                <p>{pokemon.name}</p>
-                                <img
-                                    src={pokemon.sprites.front_default}
-                                    alt='pokemon selection image'
-                                />
-                            </div>
-                        ))}
-                </div>
-            </main>
+            <div className='grid grid-cols-2'>
+                <div className='border text-center'>Fighter 1</div>
+                <div className='border text-center'>Fighter 2</div>
+            </div>
+            {/* Todo: turn this into PokemonPickerList component */}
+            <div className='grid grid-cols-4 gap-2 overflow-y-scroll'>
+                {pokemonList &&
+                    pokemonList.map((pokemon, index) => (
+                        <div className='flex items-center justify-center rounded bg-red-500/10 hover:bg-red-500/20'>
+                            <p>{pokemon.name}</p>
+                            <img
+                                src={pokemon.sprites.front_default}
+                                alt='pokemon selection image'
+                            />
+                        </div>
+                    ))}
+            </div>
         </div>
     )
 }
