@@ -1,18 +1,11 @@
 import { useState } from 'react'
 import { useGlobalPokemonData } from '../context/globalPokemonList'
-// import { useAuthContext } from './useAuthContext'
-// import { useLocalStorageContext } from './useLocalStorageContext'
-// import { useNavigate } from 'react-router-dom'
 
-
-
-
-
-
+// This hook makes the main API call to get all the Pokemon data
 export function useGetPokemon() {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
-    const { pokemonList, setPokemonList } = useGlobalPokemonData()
+    const { setPokemonList } = useGlobalPokemonData()
 
     const getPokemon = async () => {
         // Wrap async in try/catch
@@ -21,7 +14,7 @@ export function useGetPokemon() {
             setIsLoading(true)
 
             // Create an array of id's we want to search for (this will be the number of pokemon we get)
-            const pokemonIds = Array.from({ length: 10 }, (_, index) => index + 1)
+            const pokemonIds = Array.from({ length: 100 }, (_, index) => index + 1)
 
             // Map a fetch request to each id in the pokemonIds array, save the promises in pokemonPromises
             const pokemonPromises = pokemonIds.map(async (id) => {
