@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import { useEffect } from 'react';
 import './App.css';
+import { useGetPokemon } from './hooks/useGetPokemon';
+import { useGlobalPokemonData } from './context/globalPokemonList';
 
 function App() {
+  const { getPokemon, isLoading, error } = useGetPokemon()
+  const { pokemonList, setPokemonList } = useGlobalPokemonData()
+
+
+  useEffect(() => {
+    getPokemon()
+  }, [])
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {pokemonList && pokemonList.map((pokemon, index) => {
+        return (
+          <div key={index}>
+            <p>{pokemon.name}</p>
+          </div>
+        )
+      })}
+
     </div>
   );
 }
