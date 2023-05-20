@@ -10,7 +10,7 @@ const PokemonCard = ({ fighterNum, pokemonId }) => {
     const fighter = pokemonList[pokemonId] || null
 
     return (
-        <div className='border rounded bg-emerald-200/10'>
+        <div className='border rounded bg-purple-500/10'>
             {fighter && (
                 <div className="flex flex-col items-center ">
                     <h2>Fighter {fighterNum}</h2>
