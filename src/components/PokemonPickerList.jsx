@@ -2,6 +2,9 @@ import { useState } from 'react'
 
 import { useGlobalPokemonData } from '../context/globalPokemonList'
 
+import { capitalize } from '../utils/helperFunctions'
+
+
 const PokemonPickerList = () => {
 
 	// Should pass the list down as prop? 
@@ -9,7 +12,7 @@ const PokemonPickerList = () => {
     const { pokemonList, setPokemonList } = useGlobalPokemonData()
 
 
-	// Not sure what you want to use useReducer here so I'm just storing in a state variable for now and logging it
+	// Not sure how you want to use useReducer here so I'm just storing in a state variable for now and logging it
     const [selectedPokemonId, setSelectedPokemonId] = useState(null)
 
 	const handleSelect = (id) => {
@@ -23,10 +26,11 @@ const PokemonPickerList = () => {
             {pokemonList &&
                 pokemonList.map((pokemon, index) => (
                     <div
+						key={index}
                         className='flex items-center justify-center rounded bg-red-500/10 hover:bg-red-500/20'
                         onClick={() => handleSelect(pokemon.id)}
                     >
-                        <p>{pokemon.name}</p>
+                        <p>{capitalize(pokemon.name)}</p>
                         <img
                             src={pokemon.sprites.front_default}
                             alt='pokemon default'
