@@ -9,6 +9,7 @@ export function useGetPokemon() {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
     const { setPokemonList } = useGlobalPokemonData()
+    const [cache, setCache] = useState({})
 
     // Function to clean up pokemon data and get the moves, moves data, and other stats into one place
     async function getPokemonDetails(pokemomData) {
@@ -23,79 +24,81 @@ export function useGetPokemon() {
             types: [],
             stats: { battleHP: pokemomData.stats[0].base_stat },
             sprites: { front: pokemomData.sprites.front_default, back: pokemomData.sprites.back_default }
-        };
+        }
 
         const allowedMoves = pokemomData.moves.filter(move => approvedMoves.includes(move.move.name))
-        // console.log("allowed: " + allowedMoves.length)
-        // console.log("all: " + pokemomData.moves.length)
-        const shuffledMoves = allowedMoves.sort(() => Math.random() - 0.5);
-        const selectedMoves = shuffledMoves.slice(0, 4);
-        // console.log(selectedMoves)
+
+        const shuffledMoves = allowedMoves.sort(() => Math.random() - 0.5)
+        const selectedMoves = shuffledMoves.slice(0, 4)
 
         const movePromises = selectedMoves.map(moveElement => {
             return fetchMoveDetails([moveElement.move])
-        });
+        })
 
-        const moveDetails = await Promise.all(movePromises);
+        const moveDetails = await Promise.all(movePromises)
 
         for (let i = 0; i < selectedMoves.length; i++) {
-            const moveDetail = moveDetails[i];
+            const moveDetail = moveDetails[i]
 
             if (moveDetail) {
-                result.moves.push(moveDetail[0]);
+                result.moves.push(moveDetail[0])
             }
         }
 
-        // console.log(result.id, selectedMoves, result.moves)
-
         for (let abilityElement of pokemomData.abilities) {
-            result.abilities.push(abilityElement.ability.name);
+            result.abilities.push(abilityElement.ability.name)
         }
 
         for (let typeElement of pokemomData.types) {
-            result.types.push(typeElement.type.name);
+            result.types.push(typeElement.type.name)
         }
 
         for (let statsElement of pokemomData.stats) {
-            result.stats[statsElement.stat.name] = statsElement.base_stat;
+            result.stats[statsElement.stat.name] = statsElement.base_stat
         }
 
-        return result;
+        return result
     }
 
-    // Function to fetch the moves data for each move
+
+    // Function to fetch the moves data for each move, also caches the moves it has seen before
     async function fetchMoveDetails(moveData) {
         try {
             const movePromises = moveData.map(async (move) => {
                 if (move.url) {
-                    const response = await fetch(move.url);
+                    if (!cache[move.name]) {
+                        const response = await fetch(move.url)
 
-                    // If response is not ok throw an error
-                    if (!response.ok) {
-                        throw new Error(`Unable to get move ${move.name}`);
+                        // If response is not ok throw an error
+                        if (!response.ok) {
+                            throw new Error(`Unable to get move ${move.name}`)
+                        }
+
+                        // Convert response to JSON
+                        const moveDetail = await response.json()
+
+                        // Store move promise in cache
+                        setCache({ ...cache, [move.name]: moveDetail })
+
+                        return moveDetail
+                    } else {
+                        // return the cached promise
+                        return cache[move.name]
                     }
-
-                    // convert response to json
-                    return response.json();
                 }
-            });
+            })
 
-            const responses = await Promise.all(movePromises);
-            const moveDetails = [];
+            const responses = await Promise.all(movePromises)
+            const moveDetails = responses.filter(Boolean).map((response) => ({
+                name: response.name,
+                power: response.power,
+                type: response.type.name,
+            }))
 
-            for (let i = 0; i < responses.length; i++) {
-                if (responses[i].power) {
-                    moveDetails.push({
-                        name: responses[i].name,
-                        power: responses[i].power,
-                        type: responses[i].type.name
-                    });
-                }
-            }
+            return moveDetails
 
-            return moveDetails;
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
     }
 
@@ -129,7 +132,7 @@ export function useGetPokemon() {
             const cleanedPokemonDataPromises = pokemonData.map(pokemon => getPokemonDetails(pokemon))
 
             // User Promise.all to make all the fetch requests concurrently
-            const cleanedPokemonData = await Promise.all(cleanedPokemonDataPromises);
+            const cleanedPokemonData = await Promise.all(cleanedPokemonDataPromises)
 
             // sort the pokemon data (promises might complete at different times so will be out of order)
             const sortedPokemon = cleanedPokemonData.sort((a, b) => a.id - b.id)
