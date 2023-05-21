@@ -23,7 +23,7 @@ export function useGetPokemon() {
             moves: [],
             types: [],
             stats: { battleHP: pokemomData.stats[0].base_stat },
-            sprites: { front: pokemomData.sprites.front_default, back: pokemomData.sprites.back_default }
+            sprites: { front: pokemomData.sprites.front_default, back: pokemomData.sprites.back_default, highRes: pokemomData.sprites.other["official-artwork"].front_default }
         }
 
         const allowedMoves = pokemomData.moves.filter(move => approvedMoves.includes(move.move.name))
