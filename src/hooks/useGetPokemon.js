@@ -1,5 +1,8 @@
 import { useState } from 'react'
 import { useGlobalPokemonData } from '../context/globalPokemonList'
+import { approvedMoves } from '../utils/approvedMoves'
+
+
 
 // This hook makes the main API call to get all the Pokemon data
 export function useGetPokemon() {
@@ -7,6 +10,96 @@ export function useGetPokemon() {
     const [isLoading, setIsLoading] = useState(null)
     const { setPokemonList } = useGlobalPokemonData()
 
+    // Function to clean up pokemon data and get the moves, moves data, and other stats into one place
+    async function getPokemonDetails(pokemomData) {
+        let result = {
+            id: pokemomData.id,
+            name: pokemomData.name,
+            abilities: [],
+            base_experience: pokemomData.base_experience,
+            height: pokemomData.height,
+            weight: pokemomData.weight,
+            moves: [],
+            types: [],
+            stats: { battleHP: pokemomData.stats[0].base_stat },
+            sprites: { front: pokemomData.sprites.front_default, back: pokemomData.sprites.back_default }
+        };
+
+        const allowedMoves = pokemomData.moves.filter(move => approvedMoves.includes(move.move.name))
+        // console.log("allowed: " + allowedMoves.length)
+        // console.log("all: " + pokemomData.moves.length)
+        const shuffledMoves = allowedMoves.sort(() => Math.random() - 0.5);
+        const selectedMoves = shuffledMoves.slice(0, 4);
+        // console.log(selectedMoves)
+
+        const movePromises = selectedMoves.map(moveElement => {
+            return fetchMoveDetails([moveElement.move])
+        });
+
+        const moveDetails = await Promise.all(movePromises);
+
+        for (let i = 0; i < selectedMoves.length; i++) {
+            const moveDetail = moveDetails[i];
+
+            if (moveDetail) {
+                result.moves.push(moveDetail[0]);
+            }
+        }
+
+        // console.log(result.id, selectedMoves, result.moves)
+
+        for (let abilityElement of pokemomData.abilities) {
+            result.abilities.push(abilityElement.ability.name);
+        }
+
+        for (let typeElement of pokemomData.types) {
+            result.types.push(typeElement.type.name);
+        }
+
+        for (let statsElement of pokemomData.stats) {
+            result.stats[statsElement.stat.name] = statsElement.base_stat;
+        }
+
+        return result;
+    }
+
+    // Function to fetch the moves data for each move
+    async function fetchMoveDetails(moveData) {
+        try {
+            const movePromises = moveData.map(async (move) => {
+                if (move.url) {
+                    const response = await fetch(move.url);
+
+                    // If response is not ok throw an error
+                    if (!response.ok) {
+                        throw new Error(`Unable to get move ${move.name}`);
+                    }
+
+                    // convert response to json
+                    return response.json();
+                }
+            });
+
+            const responses = await Promise.all(movePromises);
+            const moveDetails = [];
+
+            for (let i = 0; i < responses.length; i++) {
+                if (responses[i].power) {
+                    moveDetails.push({
+                        name: responses[i].name,
+                        power: responses[i].power,
+                        type: responses[i].type.name
+                    });
+                }
+            }
+
+            return moveDetails;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // main function to get all the pokemon data - the length of the pokemonIds determins how many pokemon to load
     const getPokemon = async () => {
         // Wrap async in try/catch
         try {
@@ -14,7 +107,7 @@ export function useGetPokemon() {
             setIsLoading(true)
 
             // Create an array of id's we want to search for (this will be the number of pokemon we get)
-            const pokemonIds = Array.from({ length: 100 }, (_, index) => index + 1)
+            const pokemonIds = Array.from({ length: 151 }, (_, index) => index + 1)
 
             // Map a fetch request to each id in the pokemonIds array, save the promises in pokemonPromises
             const pokemonPromises = pokemonIds.map(async (id) => {
@@ -32,8 +125,14 @@ export function useGetPokemon() {
             // Use Promise.all to make all the requests concurrently and await them all being being fulfilled
             const pokemonData = await Promise.all(pokemonPromises)
 
+            // Map a fetch request to each pokemon data, save promises in an array
+            const cleanedPokemonDataPromises = pokemonData.map(pokemon => getPokemonDetails(pokemon))
+
+            // User Promise.all to make all the fetch requests concurrently
+            const cleanedPokemonData = await Promise.all(cleanedPokemonDataPromises);
+
             // sort the pokemon data (promises might complete at different times so will be out of order)
-            const sortedPokemon = pokemonData.sort((a, b) => a.id - b.id)
+            const sortedPokemon = cleanedPokemonData.sort((a, b) => a.id - b.id)
 
             // update global pokemon list context with the pokemon array
             setPokemonList(sortedPokemon)
@@ -48,5 +147,6 @@ export function useGetPokemon() {
         }
     }
 
+    // return the main function, isLoading to show if the data has finished downloading, and the error message
     return { getPokemon, isLoading, error }
 }
