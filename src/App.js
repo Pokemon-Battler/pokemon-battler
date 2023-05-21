@@ -11,6 +11,7 @@ import PokemonCard from './components/PokemonCard'
 import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom'
 
 import FightPage from './pages/FightPage'
+import LoadingPokeball from './components/LoadingPokeball'
 
 function App() {
     const { getPokemon, isLoading, error } = useGetPokemon()
@@ -38,25 +39,31 @@ function App() {
                 <Route
                     path='/'
                     element={
-                        <div className='max-h-screen grid grid-rows-[auto_3fr_2fr]'>
-                            <h1 className='text-5xl text-center p-2'>
-                                Pokemon Battler
-                            </h1>
+                        isLoading ? (
+                            <LoadingPokeball />
+                        ) : (
+                            <div className='max-h-screen grid grid-rows-[auto_3fr_2fr]'>
+                                <h1 className='text-5xl text-center p-2'>
+                                    Pokemon Battler
+                                </h1>
 
-                            <div className='grid grid-cols-[1fr_auto_1fr] gap-3 px-2'>
-                                <PokemonCard
-                                    fighterNum={1}
-                                    pokemonId={fighterData.fighter1.id}
-                                />
-                                <span className='self-center text-5xl'>VS</span>
-                                <PokemonCard
-                                    fighterNum={2}
-                                    pokemonId={fighterData.fighter2.id}
-                                />
+                                <div className='grid grid-cols-[1fr_auto_1fr] gap-3 px-2'>
+                                    <PokemonCard
+                                        fighterNum={1}
+                                        pokemonId={fighterData.fighter1.id}
+                                    />
+                                    <span className='self-center text-5xl'>
+                                        VS
+                                    </span>
+                                    <PokemonCard
+                                        fighterNum={2}
+                                        pokemonId={fighterData.fighter2.id}
+                                    />
+                                </div>
+
+                                <PokemonPickerList />
                             </div>
-
-                            <PokemonPickerList />
-                        </div>
+                        )
                     }
                 />
                 <Route path='/fight' element={<FightPage />} />
