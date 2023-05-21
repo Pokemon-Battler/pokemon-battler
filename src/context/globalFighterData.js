@@ -12,14 +12,19 @@ const initialFighterData = {
 
 // Fighter reducer
 const pokemonReducer = (prevState, action) => {
+    let stateEditable = { ...prevState }
+
     switch (action.type) {
         case 'setup':
-            console.log('Setup fighter')
-            return prevState
+            return action.payload
 
         case 'update':
-            console.log('Updating fighter')
-            return prevState
+            if (action.payload.player === 'fighter1') {
+                stateEditable = { ...stateEditable, fighter1: action.payload.reciever }
+            } else {
+                stateEditable = { ...stateEditable, fighter2: action.payload.reciever }
+            }
+            return stateEditable
 
         default:
             return prevState
