@@ -21,8 +21,13 @@ function App() {
         setPersistenPokemonList(pokemonList)
 
 		// console.log(fighterData.fighter1.pokemonId)
-        console.log(pokemonList[0])
+        // console.log(pokemonList[1])
     }, [])
+
+	
+	useEffect(() => {
+		console.log(pokemonList[1])
+	}, [pokemonList])
 
     return (
         <div className='max-h-screen grid grid-rows-[auto_3fr_2fr]'>
