@@ -29,7 +29,7 @@ function App() {
     }, [])
 
     useEffect(() => {
-        console.log(pokemonList[1])
+        // console.log(pokemonList[20])
     }, [pokemonList])
 
     return (
@@ -46,12 +46,12 @@ function App() {
                             <div className='grid grid-cols-[1fr_auto_1fr] gap-3 px-2'>
                                 <PokemonCard
                                     fighterNum={1}
-                                    pokemonId={fighterData.fighter1.pokemonId}
+                                    pokemonId={fighterData.fighter1.id}
                                 />
                                 <span className='self-center text-5xl'>VS</span>
                                 <PokemonCard
                                     fighterNum={2}
-                                    pokemonId={fighterData.fighter2.pokemonId}
+                                    pokemonId={fighterData.fighter2.id}
                                 />
                             </div>
 
@@ -59,7 +59,7 @@ function App() {
                         </div>
                     }
                 />
-				<Route path='/fight' element={<FightPage />} />
+                <Route path='/fight' element={<FightPage />} />
             </Routes>
         </BrowserRouter>
     )
