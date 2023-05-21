@@ -19,10 +19,9 @@ export function useGetPokemon() {
             base_experience: pokemomData.base_experience,
             height: pokemomData.height,
             weight: pokemomData.weight,
-            forms: [],
             moves: [],
             types: [],
-            stats: {},
+            stats: { battleHP: pokemomData.stats[0].base_stat },
             sprites: { front: pokemomData.sprites.front_default, back: pokemomData.sprites.back_default }
         };
 
@@ -59,10 +58,6 @@ export function useGetPokemon() {
 
         for (let statsElement of pokemomData.stats) {
             result.stats[statsElement.stat.name] = statsElement.base_stat;
-        }
-
-        for (let formsElement of pokemomData.forms) {
-            result.forms.push(formsElement.name);
         }
 
         return result;
@@ -112,7 +107,7 @@ export function useGetPokemon() {
             setIsLoading(true)
 
             // Create an array of id's we want to search for (this will be the number of pokemon we get)
-            const pokemonIds = Array.from({ length: 100 }, (_, index) => index + 1)
+            const pokemonIds = Array.from({ length: 151 }, (_, index) => index + 1)
 
             // Map a fetch request to each id in the pokemonIds array, save the promises in pokemonPromises
             const pokemonPromises = pokemonIds.map(async (id) => {

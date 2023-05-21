@@ -42,7 +42,8 @@ pokemonList Context -> Array containing:
         "defense": 49,
         "special-attack": 65,
         "special-defense": 65,
-        "speed": 45
+        "speed": 45,
+        "battleHP": 45
     },
     "sprites": {
         "front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
