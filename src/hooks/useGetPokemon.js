@@ -9,7 +9,6 @@ export function useGetPokemon() {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
     const { setPokemonList } = useGlobalPokemonData()
-    const [typeEffectiveness, setTypeEffectiveness] = useState(null)
 
     // Function to clean up pokemon data and get the moves, moves data, and other stats into one place
     async function getPokemonDetails(pokemomData) {
@@ -105,37 +104,6 @@ export function useGetPokemon() {
         }
     }
 
-    // Function to get all the types effectiveness data
-    async function fetchTypeData() {
-        const tempTypeData = {}
-        try {
-            const response = await fetch('https://pokeapi.co/api/v2/type');
-            const data = await response.json();
-
-            const fetchPromises = data.results.map(result => fetch(result.url));
-            const responses = await Promise.all(fetchPromises);
-            const typeDataArray = await Promise.all(responses.map(response => response.json()));
-
-            for (const typeData of typeDataArray) {
-
-                const convertedData = {
-                    double_damage_from: typeData.damage_relations.double_damage_from.map(obj => obj.name),
-                    double_damage_to: typeData.damage_relations.double_damage_to.map(obj => obj.name),
-                    half_damage_from: typeData.damage_relations.half_damage_from.map(obj => obj.name),
-                    half_damage_to: typeData.damage_relations.half_damage_to.map(obj => obj.name),
-                    no_damage_from: typeData.damage_relations.no_damage_from.map(obj => obj.name),
-                    no_damage_to: typeData.damage_relations.no_damage_to.map(obj => obj.name)
-                }
-
-                tempTypeData[typeData.name] = convertedData
-            }
-            setTypeEffectiveness(tempTypeData)
-            // console.log(typeEffectiveness)
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }
-
     // main function to get all the pokemon data - the length of the pokemonIds determins how many pokemon to load
     const getPokemon = async () => {
         // Wrap async in try/catch
@@ -170,7 +138,6 @@ export function useGetPokemon() {
 
             // sort the pokemon data (promises might complete at different times so will be out of order)
             const sortedPokemon = cleanedPokemonData.sort((a, b) => a.id - b.id)
-            console.log(sortedPokemon[0])
 
             // update global pokemon list context with the pokemon array
             setPokemonList(sortedPokemon)
@@ -183,10 +150,6 @@ export function useGetPokemon() {
             // Set loading to false - the data is now loaded
             setIsLoading(false)
         }
-    }
-
-    if (!typeEffectiveness) {
-        fetchTypeData()
     }
 
     // return the main function, isLoading to show if the data has finished downloading, and the error message
