@@ -1,0 +1,85 @@
+
+pokemonList Context -> Array containing:
+{
+    "id": 1,
+    "name": "bulbasaur",
+    "abilities": [
+        "overgrow",
+        "chlorophyll"
+    ],
+    "base_experience": 64,
+    "height": 7,
+    "weight": 69,
+    "moves": [    // 4 random attack moves, will be different every time
+        {
+            "name": "false-swipe",
+            "power": 40,
+            "type": "normal"
+        },
+        {
+            "name": "secret-power",
+            "power": 70,
+            "type": "normal"
+        },
+        {
+            "name": "hidden-power",
+            "power": 60,
+            "type": "normal"
+        },
+        {
+            "name": "vine-whip",
+            "power": 45,
+            "type": "grass"
+        }
+    ],
+    "types": [
+        "grass",
+        "poison"
+    ],
+    "stats": {
+        "hp": 45,
+        "attack": 49,
+        "defense": 49,
+        "special-attack": 65,
+        "special-defense": 65,
+        "speed": 45
+    },
+    "sprites": {
+        "front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+        "back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png"
+    }
+}
+
+
+// damage formula
+const power = pokemonClass.moves["move-name"].power
+const attack_effective = pokemonClass.stats.attack
+const defence_effective = pokemonClass.stats.defence
+const critical = Math.random() < (Math.floor(Math.random() * 256) / 256) ? 2 : 1
+
+
+function findEffectivenessMatch(pokemon, searchString) {
+    const effectiveness = pokemon.stats.effectiveness;
+    let keyWord = "half_damage_to"
+
+    for (const key in effectiveness) {
+        const subProperty = effectiveness[key];
+
+        if (subProperty.includes(searchString)) {
+            keyWord = key
+        }
+    }
+
+    if (keyWord === )
+
+  }
+
+
+// const move_type = // get the stats of the move
+const effectiveness = (pokemonClass.types.includes(move_type) ? 1.5 : 1) * (pokemonClass.moves["move-name"].type)
+
+let damage = ((((((2 * critical) / 5) + 2) * power * (attack_effective / defence_effective)) / 50) + 2) * effectiveness * ((Math.floor(Math.random() * (255 - 217 + 1)) + 217) / 255)
+
+
+
+
