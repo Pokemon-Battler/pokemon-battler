@@ -3,10 +3,104 @@ import { createContext, useContext, useReducer } from "react"
 // Initial fighter data to load into reducer
 const initialFighterData = {
     fighter1: {
-        pokemonId: 1
+        id: 1,
+        name: "bulbasaur",
+        abilities: [
+            "overgrow",
+            "chlorophyll"
+        ],
+        base_experience: 64,
+        height: 7,
+        weight: 69,
+        moves: [
+            {
+                name: "false-swipe",
+                power: 40,
+                type: "normal"
+            },
+            {
+                name: "secret-power",
+                power: 70,
+                type: "normal"
+            },
+            {
+                name: "hidden-power",
+                power: 60,
+                type: "normal"
+            },
+            {
+                name: "vine-whip",
+                power: 45,
+                type: "grass"
+            }
+        ],
+        types: [
+            "grass",
+            "poison"
+        ],
+        stats: {
+            hp: 45,
+            attack: 49,
+            defense: 49,
+            "special-attack": 65,
+            "special-defense": 65,
+            speed: 45,
+            battleHP: 45
+        },
+        sprites: {
+            front: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+            back: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png"
+        }
     },
     fighter2: {
-        pokemonId: 3
+        id: 21,
+        name: "spearow",
+        abilities: [
+            "keen-eye",
+            "sniper"
+        ],
+        base_experience: 52,
+        height: 3,
+        weight: 20,
+        moves: [
+            {
+                name: "aerial-ace",
+                power: 60,
+                type: "flying"
+            },
+            {
+                name: "twister",
+                power: 40,
+                type: "dragon"
+            },
+            {
+                name: "fury-attack",
+                power: 15,
+                type: "normal"
+            },
+            {
+                name: "razor-wind",
+                power: 80,
+                type: "normal"
+            }
+        ],
+        types: [
+            "normal",
+            "flying"
+        ],
+        stats: {
+            battleHP: 40,
+            hp: 40,
+            attack: 60,
+            defense: 30,
+            "special-attack": 31,
+            "special-defense": 31,
+            speed: 70
+        },
+        sprites: {
+            front: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/21.png",
+            back: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/21.png"
+        }
     }
 }
 
