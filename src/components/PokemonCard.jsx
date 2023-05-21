@@ -8,7 +8,7 @@ const PokemonCard = ({ fighterNum, pokemonId }) => {
     const { pokemonList, setPokemonList } = useGlobalPokemonData()
 
     const fighter = pokemonList[pokemonId] || null
-    const hp = fighter?.stats[0].base_stat
+    const hp = fighter?.stats.hp
 
     return (
         <div className='border rounded bg-purple-500/10'>
@@ -27,29 +27,29 @@ const PokemonCard = ({ fighterNum, pokemonId }) => {
 
                     <div className=''>
                         <img
-                            src={fighter.sprites.front_default}
+                            src={fighter.sprites.front}
                             alt='pokemon fighter'
-							className='w-1/2 mx-auto border-2 rounded '
+                            className='w-1/2 mx-auto border-2 rounded '
                         />
                     </div>
 
-					<div>
-						{/* {fighter.abilities[0].name} */}
-						{fighter?.abilities.map((ability, index) => (
-							<div key={index} className='text-center p-4 border'>
-								{capitalize(ability.ability.name)}
-							</div>
-						))}
-					</div>
+                    <div>
+                        {/* {fighter.abilities[0].name} */}
+                        {fighter?.abilities.map((ability, index) => (
+                            <div key={index} className='text-center p-4 border'>
+                                {capitalize(ability)}
+                            </div>
+                        ))}
+                    </div>
 
-					<div className="grid grid-cols-3 grid-rows-2 grid-flow-col gap-2">
-						{fighter?.stats.slice(1).map((stat, index) => (
-							<div key={index} className="p-1 border rounded">
-								<span>{capitalize(stat.stat.name)}: </span>
-								<span>{stat.base_stat}</span>
-							</div>
-						))}
-					</div>
+                    <div className="grid grid-cols-3 grid-rows-2 grid-flow-col gap-2">
+                        {Object.entries(fighter?.stats).slice(1).map(([key, value]) => (
+                            <div key={key} className="p-1 border rounded">
+                                <span>{capitalize(key)}: </span>
+                                <span>{value}</span>
+                            </div>
+                        ))}
+                    </div>
 
                 </div>
             )}
