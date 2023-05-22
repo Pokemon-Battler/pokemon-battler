@@ -12,7 +12,7 @@ const PokemonPickerList = ({ playerNum }) => {
 
     // Need to do [id - 1] because the pokemonList is 0-indexed
     const handleSelect = (id) => {
-        playerDispatch({ type: 'update', player: playerNum, payload: pokemonList[id - 1] })
+        playerDispatch({ type: 'set', player: playerNum, payload: pokemonList[id - 1] })
     }
 
     // update picker div borders based on selection
