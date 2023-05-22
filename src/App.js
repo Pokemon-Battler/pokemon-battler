@@ -22,7 +22,7 @@ function App() {
     // Just checking if the API call worked
     useEffect(() => {
         getPokemon()
-        setPersistenPokemonList(pokemonList)
+        // setPersistenPokemonList(pokemonList)
 
         // console.log(fighterData.fighter1.pokemonId)
         // console.log(pokemonList[1])
