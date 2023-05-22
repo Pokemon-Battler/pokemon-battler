@@ -83,7 +83,7 @@ const BattlePage = () => {
         <div className='h-screen bg-blue-100 grid grid-rows-[3fr_1fr]'>
             <button
                 onClick={handleEndGame}
-                className='absolute top-2 left-2 border-2 border-pink-500 bg-pink-500/10 px-4 py-2 rounded-lg hover:bg-pink-500 hover:text-white active:bg-pink-400 md:mx-auto'
+                className='absolute top-2 left-2 z-10 border-2 border-pink-500 bg-pink-500/10 px-4 py-2 rounded-lg hover:bg-pink-500 hover:text-white active:bg-pink-400 md:mx-auto'
             >
                 Go back
             </button>
