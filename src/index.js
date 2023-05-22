@@ -7,11 +7,11 @@ import PlayerDataProvider from './context/globalPlayerData';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <PokemonListProvider>
-      <PlayerDataProvider>
-        <App />
-      </PlayerDataProvider>
-    </PokemonListProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <PokemonListProvider>
+    <PlayerDataProvider>
+      <App />
+    </PlayerDataProvider>
+  </PokemonListProvider>
+  // </React.StrictMode>
 );
