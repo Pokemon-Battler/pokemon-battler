@@ -10,7 +10,7 @@ import PokemonCard from './components/PokemonCard'
 
 import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom'
 
-import FightPage from './pages/FightPage'
+import BattlePage from './pages/BattlePage'
 import LoadingPokeball from './components/LoadingPokeball'
 import { act } from 'react-dom/test-utils'
 
@@ -19,6 +19,7 @@ function App() {
     const { pokemonList, setPokemonList } = useGlobalPokemonData()
     const { setPersistenPokemonList } = useStorage()
     const { playerData, playerDispatch } = useGlobalPlayerData()
+
     const [activePlayer, setActivePlayer] = useState(1)
 
     // Make all the API calls and get pokemon data on page refresh
@@ -76,7 +77,7 @@ function App() {
                         )
                     }
                 />
-                <Route path='/fight' element={<FightPage />} />
+                <Route path='/battle' element={<BattlePage />} />
             </Routes>
         </BrowserRouter>
     )

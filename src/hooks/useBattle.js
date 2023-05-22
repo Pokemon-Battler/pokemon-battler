@@ -56,8 +56,8 @@ export function usePokemonBattle() {
     // main function to make an attack, include the attack move object, the attacker and reciever pokemon objects, and the player string (eg: "player1")
 
     // move: object
-    // attack: player context object
-    // receiver: player context object
+    // attack: player object from context
+    // receiver: player object from context
     // player: number
     const attack = (move, attacker, receiver, player) => {
         console.log(attacker.name + ' used ' + move.name + '!')
