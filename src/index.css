@@ -2,3 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'pokemon-solid';
+    src: url('../public/fonts/Pokemon-Solid.ttf');
+}
+
+@font-face {
+    font-family: 'pokemon-hollow';
+    src: url('../public/fonts/Pokemon-Hollow.ttf');
+}

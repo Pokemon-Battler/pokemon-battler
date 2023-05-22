@@ -55,7 +55,7 @@ export default function HomePage() {
                 ) :
                 (
                     <div className='max-h-screen grid grid-rows-[auto_3fr_2fr]'>
-                        <h1 className='text-5xl text-center p-2'>
+                        <h1 className='text-5xl text-center p-2 font-pokemon-solid mb-4'>
                             Pokemon Battler
                         </h1>
 

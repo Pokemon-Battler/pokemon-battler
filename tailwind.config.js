@@ -4,7 +4,12 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'pokemon-solid': ['pokemon-solid'],
+        'pokemon-hollow': ['pokemon-hollow'],
+      }
+    },
   },
   plugins: [],
 }
