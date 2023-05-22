@@ -2,6 +2,21 @@ import { useState } from 'react'
 import { useGlobalPlayerData } from '../context/globalPlayerData'
 import { typeEffectiveness } from '../utils/typeEffectiveness'
 
+function findMatchingKey(type1, type2) {
+    for (const key1 in typeEffectiveness) {
+        if (key1 === type1) {
+            for (const key2 in typeEffectiveness[key1]) {
+                if (typeEffectiveness[key1][key2].includes(type2)) {
+                    return key2
+                }
+            }
+        }
+    }
+
+    return null; // No matching key found
+}
+
+
 // This hook is for making attacks and updating the player stats to reflect the damage
 export function usePokemonBattle() {
     const [isWinner, setIsWinner] = useState(null)
@@ -12,8 +27,7 @@ export function usePokemonBattle() {
     const calculateDamage = (move, attacker, receiver) => {
 
         // power of the move
-        const power = attacker.moves.find(m => m.name === move.name).power
-        // const power = attacker.moves["move-name"].power
+        const power = move.power
 
         // attacker's attack score
         const attack_effective = attacker.stats.attack
@@ -24,46 +38,38 @@ export function usePokemonBattle() {
         // random chance of a critical hit
         const critical = Math.random() < (Math.floor(Math.random() * 256) / 256) ? 2 : 1
 
-        // effectiveness of the attack (against different types)
+        // effectiveness multiplyer of the attack (against different types)
         let effect = 1
-        let response = "It was not very effective!"
 
-        for (let typeEffect in typeEffectiveness[move.type]) {
-            // console.log(typeEffectiveness[move.type][effect])
-            if (typeEffectiveness[move.type][typeEffect].includes(move.type)) {
-                switch (typeEffect) {
-                    case "double_damage_to":
-                        // console.log("It was super effective!")
-                        response = "It was super effective!"
-                        // setAttackResponse("It was super effective!")
-                        effect = 2
-                        break
-                    case "half_damage_to":
-                        // console.log("It was not very effective!")
-                        response = "It was not very effective!"
-                        // setAttackResponse("It was not very effective!")
-                        effect = 1.5
-                        break
-                    case "no_damage_to":
-                        // console.log("It had no effect!")
-                        response = "It had no effect!"
-                        // setAttackResponse("It had no effect!")
-                        effect = 0
-                        break
-                    default:
-                        // console.log("It had an effect!")
-                        // setAttackResponse("It was not very effective!")
-                        break;
-                }
-            }
+        // Standard response
+        let response = "It was effective!"
+
+        // Get the kind of effect the move type has on the defender type
+        let typeEffect = findMatchingKey(move.type, receiver.types[0])
+
+        // Switch to get the natural language interpretation of the effect
+        switch (typeEffect) {
+            case "double_damage_to":
+                response = "It was super effective!"
+                effect = 2
+                break
+            case "half_damage_to":
+                response = "It was not very effective!"
+                effect = 1.5
+                break
+            case "no_damage_to":
+                response = "It had no effect!"
+                effect = 0
+                break
+            default:
+                break;
         }
 
+        // Calculate the overall effectiveness of the move
         const effectiveness = (attacker.types.includes(move.type) ? 1.5 : 1) * effect
 
         // randomiser to make the score slightly different each time
         const randomness = ((Math.floor(Math.random() * (255 - 217 + 1)) + 217) / 255)
-
-        // console.log(power, attack_effective, defence_effective, critical, effectiveness, randomness, Math.floor(((((((2 * critical) / 5) + 2) * power * (attack_effective / defence_effective)) / 50) + 2) * effectiveness * randomness))
 
         // official damage score algorithm
         return { response: response, damage: Math.floor(((((((2 * critical) / 5) + 2) * power * (attack_effective / defence_effective)) / 50) + 2) * effectiveness * randomness) }
@@ -100,8 +106,6 @@ export function usePokemonBattle() {
             // Confirm no winner has been found
             checkWinner()
         }
-
-        // console.log(attackResponse)
     }
 
     // Check if there is a winner and set the AttackResponse and isWinner values

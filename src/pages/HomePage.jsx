@@ -11,9 +11,9 @@ import { useNavigate } from 'react-router-dom'
 
 
 export default function HomePage() {
-    const { getPokemon, isLoading, error } = useGetPokemon()
-    const { pokemonList, setPokemonList } = useGlobalPokemonData()
-    const { setPersistenPokemonList } = useStorage()
+    const { getPokemon, isLoading } = useGetPokemon()
+    const { pokemonList } = useGlobalPokemonData()
+    const { setPersistenPokemonFighter } = useStorage()
     const { playerData, playerDispatch } = useGlobalPlayerData()
     const [activePlayer, setActivePlayer] = useState(1)
     const navigate = useNavigate()
@@ -21,13 +21,17 @@ export default function HomePage() {
     // Make all the API calls and get pokemon data on page refresh
     useEffect(() => {
         getPokemon()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+
+    // if the pokemon list is updated, generate a random initial data for the first pokemon choices
     useEffect(() => {
         // console.log(pokemonList[20])
         if (pokemonList.length) {
             playerDispatch({ type: 'setup', payload: { player1: pokemonList[Math.floor(Math.random() * 151)], player2: pokemonList[Math.floor(Math.random() * 151)] } })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pokemonList])
 
     // Button handler to change which player is choosing a pokemon
@@ -36,7 +40,9 @@ export default function HomePage() {
         console.log(activePlayer)
     }
 
+    // Button handler to start the battle
     const startBattle = () => {
+        setPersistenPokemonFighter({ player1: playerData.player1, player2: playerData.player2 })
         navigate('/battle')
     }
 
@@ -75,9 +81,6 @@ export default function HomePage() {
                             </div>
                             {playerData?.player2 && <PokemonCard playerNum={2} pokemon={playerData.player2} />}
                         </div>
-
-
-
                         <PokemonPickerList playerNum={activePlayer} />
                     </div>
                 )
