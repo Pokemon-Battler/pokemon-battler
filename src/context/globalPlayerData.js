@@ -118,11 +118,11 @@ const pokemonReducer = (prevState, action) => {
 
         case 'update':
             if (action.player === 1) {
-                console.log(action.payload)
+                // console.log(action.payload)
                 let tempPlayer1 = stateEditable.player1
-                console.log(tempPlayer1.stats.battleHP)
+                // console.log(tempPlayer1.stats.battleHP)
                 tempPlayer1.stats.battleHP -= action.payload
-                console.log(tempPlayer1.stats.battleHP)
+                // console.log(tempPlayer1.stats.battleHP)
                 stateEditable = { ...stateEditable, player1: tempPlayer1 }
             } else {
                 let tempPlayer2 = stateEditable.player2
