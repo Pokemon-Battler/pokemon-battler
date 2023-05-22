@@ -25,6 +25,9 @@ export default function HomePage() {
 
     useEffect(() => {
         // console.log(pokemonList[20])
+        if (pokemonList.length) {
+            playerDispatch({ type: 'setup', payload: { player1: pokemonList[Math.floor(Math.random() * 151)], player2: pokemonList[Math.floor(Math.random() * 151)] } })
+        }
     }, [pokemonList])
 
     // Button handler to change which player is choosing a pokemon
@@ -50,33 +53,36 @@ export default function HomePage() {
                             Pokemon Battler
                         </h1>
 
-                        <button
-                            onClick={handleChangeActivePlayer}
-                            className='border-2 border-pink-500 bg-pink-500/10 px-4 py-2 rounded-lg hover:bg-pink-500 hover:text-white active:bg-pink-400 md:mx-auto'
-                        >
-                            Player {activePlayer} Select
-                        </button>
-
-                        <button
-                            onClick={startBattle}
-                            className='border-2 border-pink-500 bg-pink-500/10 px-4 py-2 rounded-lg hover:bg-pink-500 hover:text-white active:bg-pink-400 md:mx-auto'
-                        >
-                            Battle!
-                        </button>
-
                         <div className='grid grid-cols-[1fr_auto_1fr] gap-3 px-2'>
                             <PokemonCard
                                 playerNum={1}
                                 pokemon={playerData.player1}
                             />
-                            <span className='self-center text-5xl'>
-                                VS
-                            </span>
+                            <div className='self-center justify-center text-5xl flex flex-col'>
+                                <button onClick={startBattle}
+                                    className='border-2 border-green-500 bg-green-500/10 px-4 py-2 rounded-lg hover:bg-green-500 hover:text-white active:bg-green-400 md:mx-auto'>
+                                    Battle!
+                                </button>
+                                <div className='text-center'>
+                                    VS
+                                </div>
+                                <button
+                                    onClick={handleChangeActivePlayer}
+                                    className='border-2 border-pink-500 bg-pink-500/10 px-4 py-2 rounded-lg hover:bg-pink-500 hover:text-white active:bg-pink-400 md:mx-auto'>
+                                    {activePlayer === 1 ? (
+                                        <span dangerouslySetInnerHTML={{ __html: "&larr;" }} />
+                                    ) : (
+                                        <span dangerouslySetInnerHTML={{ __html: "&rarr;" }} />
+                                    )}
+                                </button>
+                            </div>
                             <PokemonCard
                                 playerNum={2}
                                 pokemon={playerData.player2}
                             />
                         </div>
+
+
 
                         <PokemonPickerList playerNum={activePlayer} />
                     </div>
