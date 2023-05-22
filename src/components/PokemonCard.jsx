@@ -2,72 +2,73 @@ import { capitalize } from '../utils/helperFunctions'
 
 const PokemonCard = ({ playerNum, pokemon }) => {
 
-    const changeBackground = (type, weight) => {
+    const changeBackground = (type) => {
         let background = ''
         switch (type) {
             case 'normal':
-                background = `bg-coolGray-${weight}`
+                background = `gray-200`
                 break
             case 'fighting':
-                background = `bg-red-${weight}`
+                background = `red-200`
                 break
             case 'flying':
-                background = `bg-blue-${weight}`
+                background = `sky-100`
                 break
             case 'poison':
-                background = `bg-purple-${weight}`
+                background = `purple-200`
                 break
             case 'ground':
-                background = `bg-yellow-${weight}`
+                background = `amber-200`
                 break
             case 'rock':
-                background = `bg-trueGray-${weight}`
+                background = `orange-200`
                 break
             case 'bug':
-                background = `bg-green-${weight}`
+                background = `emerald-200`
                 break
             case 'ghost':
-                background = `bg-indigo-${weight}`
+                background = `indigo-200`
                 break
             case 'steel':
-                background = `bg-gray-${weight}`
+                background = `slate-200`
                 break
             case 'fire':
-                background = `bg-red-${weight}`
+                background = `red-200`
                 break
             case 'water':
-                background = `bg-blue-${weight}`
+                background = `blue-200`
                 break
             case 'grass':
-                background = `bg-green-${weight}`
+                background = `green-200`
                 break
             case 'electric':
-                background = `bg-yellow-${weight}`
+                background = `yellow-200`
                 break
             case 'psychic':
-                background = `bg-pink-${weight}`
+                background = `pink-200`
                 break
             case 'ice':
-                background = `bg-blue-${weight}`
+                background = `cyan-100`
                 break
             case 'dragon':
-                background = `bg-purple-${weight}`
+                background = `violet-200`
                 break
             case 'dark':
-                background = `bg-trueGray-${weight}`
+                background = `gray-400`
                 break
             case 'fairy':
-                background = `bg-pink-${weight}`
+                background = `pink-200`
                 break
             case 'unknown':
-                background = `bg-coolGray-${weight}`
+                background = `zinc-200`
                 break
             case 'shadow':
-                background = `bg-coolGray-${weight}`
+                background = `slate-200`
                 break
             default:
                 break
         }
+        console.log(background)
         return background
     }
 
@@ -121,12 +122,17 @@ const PokemonCard = ({ playerNum, pokemon }) => {
     const containerClass = () => {
         let border = playerNum === 1 ? 'border-red-600 border-2' : 'border-blue-600 border-2'
 
-        return `${border} border rounded bg-purple-500/10`
+        return `${border} rounded`
+    }
+
+    function test() {
+        console.log(`${containerClass()} bg-${changeBackground(pokemon.types[0])}`)
+        return String(`${containerClass()} bg-${changeBackground(pokemon.types[0])}`)
     }
 
 
     return (
-        <div className={`${changeBackground(pokemon.types[0], 400)} ${containerClass()}`}>
+        <div className={test()}>
             {pokemon && (
                 <div className='flex flex-col gap-2 px-2 relative'>
                     <div className='flex items-center justify-between'>
@@ -144,13 +150,15 @@ const PokemonCard = ({ playerNum, pokemon }) => {
                     <div className="flex flex-col gap-1 absolute translate-y-20">
                         <div><span className="font-bold">Height: </span>{pokemon.height}</div>
                         <div><span className="font-bold">Weight: </span>{pokemon.weight}{pokemon.weight > 1 ? 'kgs' : 'kg'}</div>
+                        <div><span className="font-bold">Types: </span>{capitalize(pokemon.types[0])}{pokemon.types[1] ? `, ${capitalize(pokemon.types[1])}` : ''}</div>
                     </div>
 
                     <div>
                         <img
                             src={pokemon.sprites.highRes}
                             alt='pokemon fighter'
-                            className={changeBackground(pokemon.types[0], 200) + ' w-2/5 mx-auto rounded'}
+                            className={`w-2/5 mx-auto rounded bg-gradient-to-br from-${changeBackground(pokemon.types[0])} to-slate-600`}
+                        // className={changeBackground(pokemon.types[0], 200) + ' w-2/5 mx-auto rounded'}
                         />
                     </div>
 
