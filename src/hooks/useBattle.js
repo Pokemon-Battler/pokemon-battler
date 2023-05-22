@@ -10,7 +10,6 @@ export function usePokemonBattle() {
 
     // function to crunch the all the data and generate a single attack damage number
     const calculateDamage = (move, attacker, receiver) => {
-        console.log(move)
 
         // power of the move
         const power = attacker.moves.find(m => m.name === move.name).power
@@ -20,45 +19,54 @@ export function usePokemonBattle() {
         const attack_effective = attacker.stats.attack
 
         // defender's defence score
-        const defence_effective = receiver.stats.defence
+        const defence_effective = receiver.stats.defense
 
         // random chance of a critical hit
         const critical = Math.random() < (Math.floor(Math.random() * 256) / 256) ? 2 : 1
 
         // effectiveness of the attack (against different types)
         let effect = 1
+        let response = "It was not very effective!"
 
-        console.log(move.type)
-        console.log(typeEffectiveness[move.type])
-
-        
-        for (let effect of typeEffectiveness[move.type]) {
-            if (effect.includes(move.type)) {
-                switch (String(effect)) {
+        for (let typeEffect in typeEffectiveness[move.type]) {
+            // console.log(typeEffectiveness[move.type][effect])
+            if (typeEffectiveness[move.type][typeEffect].includes(move.type)) {
+                switch (typeEffect) {
                     case "double_damage_to":
-                        setAttackResponse("It was super effective!")
+                        // console.log("It was super effective!")
+                        response = "It was super effective!"
+                        // setAttackResponse("It was super effective!")
                         effect = 2
                         break
                     case "half_damage_to":
-                        setAttackResponse("It was not very effective!")
+                        // console.log("It was not very effective!")
+                        response = "It was not very effective!"
+                        // setAttackResponse("It was not very effective!")
                         effect = 1.5
                         break
                     case "no_damage_to":
-                        setAttackResponse("It had no effect!")
+                        // console.log("It had no effect!")
+                        response = "It had no effect!"
+                        // setAttackResponse("It had no effect!")
                         effect = 0
                         break
                     default:
+                        // console.log("It had an effect!")
+                        // setAttackResponse("It was not very effective!")
                         break;
                 }
             }
         }
+
         const effectiveness = (attacker.types.includes(move.type) ? 1.5 : 1) * effect
 
         // randomiser to make the score slightly different each time
         const randomness = ((Math.floor(Math.random() * (255 - 217 + 1)) + 217) / 255)
 
+        // console.log(power, attack_effective, defence_effective, critical, effectiveness, randomness, Math.floor(((((((2 * critical) / 5) + 2) * power * (attack_effective / defence_effective)) / 50) + 2) * effectiveness * randomness))
+
         // official damage score algorithm
-        return Math.floor(((((((2 * critical) / 5) + 2) * power * (attack_effective / defence_effective)) / 50) + 2) * effectiveness * randomness)
+        return { response: response, damage: Math.floor(((((((2 * critical) / 5) + 2) * power * (attack_effective / defence_effective)) / 50) + 2) * effectiveness * randomness) }
     }
 
     // main function to make an attack, include the attack move object, the attacker and reciever pokemon objects, and the player string (eg: "player1")
@@ -68,15 +76,19 @@ export function usePokemonBattle() {
     // receiver: player object from context
     // player: number
     const attack = (move, attacker, receiver, player) => {
-        console.log(attacker.name + ' used ' + move.name + '!')
+        // console.log(`Player ${player} with ${attacker.name} used ${move.name}!`)
 
         // Random chance to miss completely
         if (Math.random() < 0.95) {
-            // Calculate damage and apply to reciever's battle HP
-            receiver.stats.battleHP -= calculateDamage(move, attacker, receiver)
+            const moveResult = calculateDamage(move, attacker, receiver)
+
+            // console.log(moveResult.damage)
 
             // update the health of the reciever
-            playerDispatch({ type: 'update', player: player, payload: { player, receiver } })
+            playerDispatch({ type: 'update', player: player, payload: moveResult.damage })
+
+            setAttackResponse(moveResult.response)
+            // console.log(moveResult.response)
 
             // check if there is a winner after the attack
             checkWinner()
@@ -88,6 +100,8 @@ export function usePokemonBattle() {
             // Confirm no winner has been found
             checkWinner()
         }
+
+        // console.log(attackResponse)
     }
 
     // Check if there is a winner and set the AttackResponse and isWinner values
