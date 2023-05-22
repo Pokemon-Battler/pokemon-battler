@@ -10,8 +10,11 @@ export function usePokemonBattle() {
 
     // function to crunch the all the data and generate a single attack damage number
     const calculateDamage = (move, attacker, receiver) => {
+        console.log(move)
+
         // power of the move
-        const power = attacker.moves["move-name"].power
+        const power = attacker.moves.find(m => m.name === move.name).power
+        // const power = attacker.moves["move-name"].power
 
         // attacker's attack score
         const attack_effective = attacker.stats.attack
@@ -24,6 +27,11 @@ export function usePokemonBattle() {
 
         // effectiveness of the attack (against different types)
         let effect = 1
+
+        console.log(move.type)
+        console.log(typeEffectiveness[move.type])
+
+        
         for (let effect of typeEffectiveness[move.type]) {
             if (effect.includes(move.type)) {
                 switch (String(effect)) {

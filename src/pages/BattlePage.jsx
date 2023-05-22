@@ -17,8 +17,12 @@ const BattlePage = () => {
     const [activePlayerTurn, setActivePlayerTurn] = useState(1)
 
 
-
-    const handleMoveClick = () => {
+    const handleMoveClick = (move) => {
+        if (activePlayerTurn === 1) {
+            attack(move, player1, player2, 1)
+        } else if (activePlayerTurn === 2) {
+            attack(move, player1, player2, 2)
+        }
 
     }
 
@@ -85,7 +89,7 @@ const BattlePage = () => {
                             <button
                                 key={index}
                                 className='border-4 border-white rounded-3xl m-3 text-3xl uppercase font-bold text-white'
-                                onClick={handleMoveClick}
+                                onClick={() => handleMoveClick(move)}
                             >
                                 {capitalize(move.name)}
                             </button>
