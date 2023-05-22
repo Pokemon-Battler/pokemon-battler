@@ -3,54 +3,54 @@ import { createContext, useContext, useReducer } from "react"
 // Initial fighter data to load into reducer
 const initialPlayerData = {
     player1: {
-        id: 1,
-        name: "bulbasaur",
+        id: 59,
+        name: "arcanine",
         abilities: [
-            "overgrow",
-            "chlorophyll"
+            "intimidate",
+            "flash-fire",
+            "justified"
         ],
-        base_experience: 64,
-        height: 7,
-        weight: 69,
+        base_experience: 194,
+        height: 19,
+        weight: 1550,
         moves: [
+            {
+                name: "rage",
+                power: 20,
+                type: "normal"
+            },
+            {
+                name: "rock-smash",
+                power: 40,
+                type: "fighting"
+            },
             {
                 name: "take-down",
                 power: 90,
                 type: "normal"
             },
             {
-                name: "razor-leaf",
-                power: 55,
-                type: "grass"
-            },
-            {
-                name: "mud-slap",
-                power: 20,
-                type: "ground"
-            },
-            {
-                name: "secret-power",
-                power: 70,
+                name: "extreme-speed",
+                power: 80,
                 type: "normal"
             }
         ],
         types: [
-            "grass",
-            "poison"
+            "fire"
         ],
         stats: {
-            "battleHP": 45,
-            "hp": 45,
-            "attack": 49,
-            "defense": 49,
-            "special-attack": 65,
-            "special-defense": 65,
-            "speed": 45
+            battleHP: 90,
+            hp: 90,
+            attack: 110,
+            defense: 80,
+            "special-attack": 100,
+            "special-defense": 80,
+            speed: 95
         },
         sprites: {
-            "front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-            "back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png",
-            "highRes": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+            front: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/59.png",
+            back: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/59.png",
+            highRes: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/59.png"
         }
     },
     player2: {
@@ -102,6 +102,22 @@ const pokemonReducer = (prevState, action) => {
             return action.payload
 
         case 'update':
+            if (action.player === 1) {
+                console.log(action.payload)
+                let tempPlayer1 = stateEditable.player1
+                console.log(tempPlayer1.stats.battleHP)
+                tempPlayer1.stats.battleHP -= action.payload
+                console.log(tempPlayer1.stats.battleHP)
+                stateEditable = { ...stateEditable, player1: tempPlayer1 }
+            } else {
+                let tempPlayer2 = stateEditable.player2
+                tempPlayer2.stats.battleHP -= action.payload
+
+                stateEditable = { ...stateEditable, player2: tempPlayer2 }
+            }
+            return stateEditable
+
+        case 'set':
             if (action.player === 1) {
                 stateEditable = { ...stateEditable, player1: action.payload }
             } else {
