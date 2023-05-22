@@ -1,14 +1,12 @@
 import { useState } from 'react'
-import { useGlobalFighterData } from '../context/globalFighterData'
+import { useGlobalPlayerData } from '../context/globalPlayerData'
 import { typeEffectiveness } from '../utils/typeEffectiveness'
-// import { approvedMoves } from '../utils/approvedMoves'
 
-
-// This hook is for making attacks and updating the fighter stats to reflect the damage
+// This hook is for making attacks and updating the player stats to reflect the damage
 export function usePokemonBattle() {
     const [isWinner, setIsWinner] = useState(null)
     const [attackResponse, setAttackResponse] = useState("")
-    const { fighterData, fighterDispatch } = useGlobalFighterData()
+    const { playerData, playerDispatch } = useGlobalPlayerData()
 
     // function to crunch the all the data and generate a single attack damage number
     const calculateDamage = (move, attacker, receiver) => {
@@ -55,7 +53,7 @@ export function usePokemonBattle() {
         return Math.floor(((((((2 * critical) / 5) + 2) * power * (attack_effective / defence_effective)) / 50) + 2) * effectiveness * randomness)
     }
 
-    // main function to make an attack, include the attack move object, the attacker and reciever pokemon objects, and the player string (eg: "Fighter1")
+    // main function to make an attack, include the attack move object, the attacker and reciever pokemon objects, and the player string (eg: "player1")
     const attack = (move, attacker, receiver, player) => {
         console.log(attacker.name + ' used ' + move.name + '!')
 
@@ -65,7 +63,7 @@ export function usePokemonBattle() {
             receiver.stats.battleHP -= calculateDamage(move, attacker, receiver)
 
             // update the health of the reciever
-            fighterDispatch({ type: 'update', payload: { player, receiver } })
+            playerDispatch({ type: 'update', player: player, payload: { player, receiver } })
 
             // check if there is a winner after the attack
             checkWinner()
@@ -81,14 +79,14 @@ export function usePokemonBattle() {
 
     // Check if there is a winner and set the AttackResponse and isWinner values
     const checkWinner = () => {
-        const { fighter1, fighter2 } = fighterData
+        const { player1, player2 } = playerData
 
-        if (fighter1.stats.hp <= 0) {
-            setIsWinner(fighter1)
-            setAttackResponse('GAME OVER: ' + fighter1.name + ' fainted!')
-        } else if (fighter2.hp <= 0) {
-            setIsWinner(fighter2)
-            setAttackResponse('GAME OVER: ' + fighter2.name + ' fainted!')
+        if (player1.stats.hp <= 0) {
+            setIsWinner(player1)
+            setAttackResponse('GAME OVER: ' + player1.name + ' fainted!')
+        } else if (player2.hp <= 0) {
+            setIsWinner(player2)
+            setAttackResponse('GAME OVER: ' + player2.name + ' fainted!')
         } else {
             setIsWinner(false)
         }
