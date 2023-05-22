@@ -50,7 +50,12 @@ function App() {
                                     Pokemon Battler
                                 </h1>
 
-                                <button onClick={handleChangeActivePlayer}>Current player: {activePlayer}</button>
+                                <button
+                                    onClick={handleChangeActivePlayer}
+                                    className='border-2 border-pink-500 bg-pink-500/10 px-4 py-2 rounded-lg hover:bg-pink-500 hover:text-white active:bg-pink-400 md:mx-auto'
+                                >
+                                    Player {activePlayer} Select
+                                </button>
 
                                 <div className='grid grid-cols-[1fr_auto_1fr] gap-3 px-2'>
                                     <PokemonCard
