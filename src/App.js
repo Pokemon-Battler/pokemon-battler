@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { useGetPokemon } from './hooks/useGetPokemon'
 import { useGlobalPokemonData } from './context/globalPokemonList'
-import { useGlobalFighterData } from './context/globalFighterData'
+import { useGlobalPlayerData } from './context/globalPlayerData'
 import { useStorage } from './hooks/useStorage'
 
 import PokemonPickerList from './components/PokemonPickerList'
@@ -12,26 +12,29 @@ import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom'
 
 import FightPage from './pages/FightPage'
 import LoadingPokeball from './components/LoadingPokeball'
+import { act } from 'react-dom/test-utils'
 
 function App() {
     const { getPokemon, isLoading, error } = useGetPokemon()
     const { pokemonList, setPokemonList } = useGlobalPokemonData()
     const { setPersistenPokemonList } = useStorage()
+    const { playerData, playerDispatch } = useGlobalPlayerData()
+    const [activePlayer, setActivePlayer] = useState(1)
 
-    const { fighterData, dispatch } = useGlobalFighterData()
-
-    // Just checking if the API call worked
+    // Make all the API calls and get pokemon data on page refresh
     useEffect(() => {
         getPokemon()
-        // setPersistenPokemonList(pokemonList)
-
-        // console.log(fighterData.fighter1.pokemonId)
-        // console.log(pokemonList[1])
     }, [])
 
     useEffect(() => {
         // console.log(pokemonList[20])
     }, [pokemonList])
+
+    // Button handler to change which player is choosing a pokemon
+    const handleChangeActivePlayer = () => {
+        setActivePlayer(activePlayer === 1 ? 2 : 1)
+        console.log(activePlayer)
+    }
 
     return (
         <BrowserRouter>
@@ -47,21 +50,23 @@ function App() {
                                     Pokemon Battler
                                 </h1>
 
+                                <button onClick={handleChangeActivePlayer}>Current player: {activePlayer}</button>
+
                                 <div className='grid grid-cols-[1fr_auto_1fr] gap-3 px-2'>
                                     <PokemonCard
-                                        fighterNum={1}
-                                        pokemonId={fighterData.fighter1.id}
+                                        playerNum={1}
+                                        pokemon={playerData.player1}
                                     />
                                     <span className='self-center text-5xl'>
                                         VS
                                     </span>
                                     <PokemonCard
-                                        fighterNum={2}
-                                        pokemonId={fighterData.fighter2.id}
+                                        playerNum={2}
+                                        pokemon={playerData.player2}
                                     />
                                 </div>
 
-                                <PokemonPickerList />
+                                <PokemonPickerList playerNum={activePlayer} />
                             </div>
                         )
                     }
