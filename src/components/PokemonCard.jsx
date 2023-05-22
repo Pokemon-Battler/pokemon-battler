@@ -125,16 +125,13 @@ const PokemonCard = ({ playerNum, pokemon }) => {
         return `${border} rounded`
     }
 
-    function test() {
-        console.log(playerNum, `${containerClass()} ${changeBackground(pokemon.types[0])}`)
-
+    function getClassName() {
         return `${containerClass()} ${changeBackground(pokemon.types[0])}`
     }
 
 
     return (
-        // <div className={`${containerClass()} ${changeBackground(pokemon.types[0])}`}>
-        <div className={test()}>
+        <div className={getClassName()}>
             {pokemon && (
                 <div className='flex flex-col gap-2 px-2 relative'>
                     <div className='flex items-center justify-between'>
@@ -159,9 +156,7 @@ const PokemonCard = ({ playerNum, pokemon }) => {
                         <img
                             src={pokemon.sprites.highRes}
                             alt='pokemon fighter'
-                            className={`w-2/5 mx-auto rounded bg-gradient-to-br from-${changeBackground(pokemon.types[0])} to-slate-600`}
-                        // className={changeBackground(pokemon.types[0], 200) + ' w-2/5 mx-auto rounded'}
-                        />
+                            className={`w-2/5 mx-auto rounded bg-gradient-to-br from-${changeBackground(pokemon.types[0])} to-slate-600`} />
                     </div>
 
                     <div className='flex flex-row text-center gap-2'>

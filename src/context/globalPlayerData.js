@@ -157,7 +157,7 @@ export function useGlobalPlayerData() {
 // Component to provide global context to app
 export default function PlayerDataProvider(props) {
     // Initialise reducer state and dispatcher
-    const [playerData, playerDispatch] = useReducer(pokemonReducer, initialPlayerData)
+    const [playerData, playerDispatch] = useReducer(pokemonReducer, {})
 
     return (
         <PokemonPlayers.Provider value={{ playerData, playerDispatch }}>

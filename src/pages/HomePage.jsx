@@ -54,10 +54,7 @@ export default function HomePage() {
                         </h1>
 
                         <div className='grid grid-cols-[1fr_auto_1fr] gap-3 px-2'>
-                            <PokemonCard
-                                playerNum={1}
-                                pokemon={playerData.player1}
-                            />
+                            {playerData?.player1 && <PokemonCard playerNum={1} pokemon={playerData.player1} />}
                             <div className='self-center justify-center text-5xl flex flex-col'>
                                 <button onClick={startBattle}
                                     className='border-2 border-green-500 bg-green-500/10 px-4 py-2 rounded-lg hover:bg-green-500 hover:text-white active:bg-green-400 md:mx-auto'>
@@ -76,10 +73,7 @@ export default function HomePage() {
                                     )}
                                 </button>
                             </div>
-                            <PokemonCard
-                                playerNum={2}
-                                pokemon={playerData.player2}
-                            />
+                            {playerData?.player2 && <PokemonCard playerNum={2} pokemon={playerData.player2} />}
                         </div>
 
 

@@ -19,11 +19,11 @@ const PokemonPickerList = ({ playerNum }) => {
     const checkSelection = (id) => {
         let border = ''
 
-        if (playerData.player1.id === id && playerData.player2.id === id) {
+        if (playerData?.player1?.id === id && playerData?.player2?.id === id) {
             border = 'border-purple-600 border-2 '
-        } else if (playerData.player1.id === id) {
+        } else if (playerData?.player1?.id === id) {
             border = 'border-red-600 border-2 '
-        } else if (playerData.player2.id === id) {
+        } else if (playerData?.player2?.id === id) {
             border = 'border-blue-600 border-2 '
         }
         return `${border}flex items-center justify-center rounded bg-red-500/10 hover:bg-red-500/20`
