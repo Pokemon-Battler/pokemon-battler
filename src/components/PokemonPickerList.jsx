@@ -1,19 +1,34 @@
 import { useGlobalPokemonData } from '../context/globalPokemonList'
 import { capitalize } from '../utils/helperFunctions'
 import { useGlobalPlayerData } from '../context/globalPlayerData'
+import { useEffect, useState } from 'react'
 
 
 const PokemonPickerList = ({ playerNum }) => {
-
-    // Should pass the list down as prop? 
-    // The point of the global context is that we don't need to and can just use the hook here right? - Matt: yep, we can use the global context here
     const { pokemonList } = useGlobalPokemonData()
-    const { playerDispatch } = useGlobalPlayerData()
+    const { playerData, playerDispatch } = useGlobalPlayerData()
+    const [classNames, setClassNames] = useState('flex items-center justify-center rounded bg-red-500/10 hover:bg-red-500/20');
+
 
     // Need to do [id - 1] because the pokemonList is 0-indexed
     const handleSelect = (id) => {
         playerDispatch({ type: 'update', player: playerNum, payload: pokemonList[id - 1] })
     }
+
+    // update picker div borders based on selection
+    const checkSelection = (id) => {
+        let border = ''
+
+        if (playerData.player1.id === id && playerData.player2.id === id) {
+            border = 'border-purple-600 border-2 '
+        } else if (playerData.player1.id === id) {
+            border = 'border-red-600 border-2 '
+        } else if (playerData.player2.id === id) {
+            border = 'border-blue-600 border-2 '
+        }
+        return `${border}flex items-center justify-center rounded bg-red-500/10 hover:bg-red-500/20`
+    }
+
 
     return (
         <div className='grid grid-cols-4 gap-2 p-2 overflow-y-scroll'>
@@ -21,7 +36,7 @@ const PokemonPickerList = ({ playerNum }) => {
                 pokemonList.map((pokemon, index) => (
                     <div
                         key={index}
-                        className='flex items-center justify-center rounded bg-red-500/10 hover:bg-red-500/20'
+                        className={checkSelection(pokemon.id)}
                         onClick={() => handleSelect(pokemon.id)}
                     >
                         <p>{capitalize(pokemon.name)}</p>
