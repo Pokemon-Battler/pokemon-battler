@@ -6,64 +6,64 @@ const PokemonCard = ({ playerNum, pokemon }) => {
         let background = ''
         switch (type) {
             case 'normal':
-                background = 'gray-200'
+                background = 'bg-gray-200'
                 break
             case 'fighting':
-                background = 'red-200'
+                background = 'bg-red-200'
                 break
             case 'flying':
-                background = 'sky-200'
+                background = 'bg-sky-200'
                 break
             case 'poison':
-                background = 'purple-200'
+                background = 'bg-purple-200'
                 break
             case 'ground':
-                background = 'amber-200'
+                background = 'bg-amber-200'
                 break
             case 'rock':
-                background = 'orange-200'
+                background = 'bg-orange-200'
                 break
             case 'bug':
-                background = 'emerald-200'
+                background = 'bg-emerald-200'
                 break
             case 'ghost':
-                background = 'indigo-200'
+                background = 'bg-indigo-200'
                 break
             case 'steel':
-                background = 'slate-200'
+                background = 'bg-slate-200'
                 break
             case 'fire':
-                background = 'red-200'
+                background = 'bg-red-200'
                 break
             case 'water':
-                background = 'blue-200'
+                background = 'bg-blue-200'
                 break
             case 'grass':
-                background = 'green-200'
+                background = 'bg-green-200'
                 break
             case 'electric':
-                background = 'yellow-200'
+                background = 'bg-yellow-200'
                 break
             case 'psychic':
-                background = 'pink-200'
+                background = 'bg-pink-200'
                 break
             case 'ice':
-                background = 'cyan-200'
+                background = 'bg-cyan-200'
                 break
             case 'dragon':
-                background = 'violet-200'
+                background = 'bg-violet-200'
                 break
             case 'dark':
-                background = 'gray-400'
+                background = 'bg-gray-400'
                 break
             case 'fairy':
-                background = 'pink-200'
+                background = 'bg-pink-200'
                 break
             case 'unknown':
-                background = 'zinc-200'
+                background = 'bg-zinc-200'
                 break
             case 'shadow':
-                background = 'slate-200'
+                background = 'bg-slate-200'
                 break
             default:
                 break
@@ -126,12 +126,14 @@ const PokemonCard = ({ playerNum, pokemon }) => {
     }
 
     function test() {
-        console.log(playerNum, `${containerClass()} bg-${changeBackground(pokemon.types[0])}`)
-        return String(`${containerClass()} bg-${changeBackground(pokemon.types[0])}`)
+        console.log(playerNum, `${containerClass()} ${changeBackground(pokemon.types[0])}`)
+
+        return `${containerClass()} ${changeBackground(pokemon.types[0])}`
     }
 
 
     return (
+        // <div className={`${containerClass()} ${changeBackground(pokemon.types[0])}`}>
         <div className={test()}>
             {pokemon && (
                 <div className='flex flex-col gap-2 px-2 relative'>
