@@ -60,6 +60,8 @@ const PokemonCard = ({ playerNum, pokemon }) => {
                                     <span className="font-bold">{capitalize(key)}: </span>
                                     <span>{value}</span>
                                 </div>)
+                            } else {
+                                return null
                             }
                         })}
                     </div>

@@ -1,7 +1,5 @@
 import { useState } from 'react'
 import { useGlobalPokemonData } from '../context/globalPokemonList'
-import { approvedMoves } from '../utils/approvedMoves'
-import { useStorage } from './useStorage'
 import { moveDataJSON } from '../utils/moveData'
 
 // Function to create an array of random moves with an 80% probability the moves will be the same type as the one supplied
@@ -51,7 +49,6 @@ export function useGetPokemon() {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
     const { setPokemonList } = useGlobalPokemonData()
-    const { persistenPokemonList, setPersistenPokemonList } = useStorage()
 
     // Function to clean up pokemon data and get the moves, moves data, and other stats into one place
     async function getPokemonDetails(pokemonData) {
@@ -69,8 +66,8 @@ export function useGetPokemon() {
                 front: pokemonData.sprites.front_default,
                 back: pokemonData.sprites.back_default,
                 highRes: pokemonData.sprites.other["official-artwork"].front_default,
-                aniFront: `https://play.pokemonshowdown.com/sprites/xyani/${pokemonData.name}.gif`,
-                aniBack: `https://play.pokemonshowdown.com/sprites/ani-back/${pokemonData.name}.gif`
+                aniFront: `https://play.pokemonshowdown.com/sprites/xyani/${pokemonData.name === 'nidoran-m' ? 'nidoranm' : pokemonData.name === 'nidoran-f' ? 'nidoranf' : pokemonData.name}.gif`,
+                aniBack: `https://play.pokemonshowdown.com/sprites/ani-back/${pokemonData.name === 'nidoran-m' ? 'nidoranm' : pokemonData.name === 'nidoran-f' ? 'nidoranf' : pokemonData.name}.gif`
             }
         }
 
