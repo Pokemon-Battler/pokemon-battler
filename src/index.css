@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ====== Fonts ====== */
 @font-face {
     font-family: 'pokemon-solid';
     src: url('../public/fonts/Pokemon-Solid.ttf');
@@ -12,9 +13,10 @@
     src: url('../public/fonts/Pokemon-Hollow.ttf');
 }
 
+/* ====== Animations ====== */
 @keyframes blink {
     0% {
-       opacity: 0;
+        opacity: 0;
     }
     50% {
         opacity: 1;
@@ -26,4 +28,15 @@
 
 .blink {
     animation: blink 0.2s infinite steps(1);
+}
+
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: #6ee7b7d9;
+    transform-origin: 0%;
+    /* z-index: 20; */
 }
