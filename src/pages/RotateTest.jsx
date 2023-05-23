@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useGlobalPlayerData } from '../context/globalPlayerData'
 
 const RotateTest = () => {
-    const { playerData, playerDispatch } = useGlobalPlayerData()
+    const { playerData } = useGlobalPlayerData()
     const { player1, player2 } = playerData
 
     const [boolVal, setBoolVal] = useState(false)

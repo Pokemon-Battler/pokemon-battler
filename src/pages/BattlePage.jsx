@@ -5,7 +5,7 @@ import { capitalize } from '../utils/helperFunctions'
 import { useNavigate } from 'react-router-dom'
 import { getEmoji } from '../utils/getEmoji'
 import { changeBackground } from '../utils/changeBackground'
-import { motion, useSpring } from 'framer-motion'
+import { motion } from 'framer-motion'
 import bgImage from '../images/backgrounds/1.png'
 import WinnerOverlayContainer from '../components/WinnerOverlayContainer'
 import ConfettiExplosion from 'react-confetti-explosion';
@@ -41,18 +41,18 @@ export default function BattlePage() {
         return stats.battleHP / stats.hp
     }
 
-    // these aren't used yet
-    const defenderHpBar = useSpring(defenderHpNormalized, {
-        stiffness: 100,
-        damping: 30,
-        restDelta: 0.002,
-    })
+    // // these aren't used yet
+    // const defenderHpBar = useSpring(defenderHpNormalized, {
+    //     stiffness: 100,
+    //     damping: 30,
+    //     restDelta: 0.002,
+    // })
 
-    const attackerHpBar = useSpring(attackerHpNormalized, {
-        stiffness: 100,
-        damping: 30,
-        restDelta: 0.002,
-    })
+    // const attackerHpBar = useSpring(attackerHpNormalized, {
+    //     stiffness: 100,
+    //     damping: 30,
+    //     restDelta: 0.002,
+    // })
 
     // Pause function
     const pause = (ms) => {
