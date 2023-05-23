@@ -65,7 +65,13 @@ export function useGetPokemon() {
             moves: [],
             types: [],
             stats: { battleHP: pokemonData.stats[0].base_stat },
-            sprites: { front: pokemonData.sprites.front_default, back: pokemonData.sprites.back_default, highRes: pokemonData.sprites.other["official-artwork"].front_default, gif: `https://play.pokemonshowdown.com/sprites/xyani/${pokemonData.name}.gif` }
+            sprites: {
+                front: pokemonData.sprites.front_default,
+                back: pokemonData.sprites.back_default,
+                highRes: pokemonData.sprites.other["official-artwork"].front_default,
+                aniFront: `https://play.pokemonshowdown.com/sprites/xyani/${pokemonData.name}.gif`,
+                aniBack: `https://play.pokemonshowdown.com/sprites/ani-back/${pokemonData.name}.gif`
+            }
         }
 
         for (let abilityElement of pokemonData.abilities) {
