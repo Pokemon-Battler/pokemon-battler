@@ -5,6 +5,7 @@ import { usePokemonBattle } from '../hooks/useBattle'
 import { capitalize } from '../utils/helperFunctions'
 import { useNavigate } from 'react-router-dom'
 import { useStorage } from '../hooks/useStorage'
+import { getEmoji } from '../utils/getEmoji'
 
 const BattlePage = () => {
     // Hook to navigate to a different page
@@ -91,23 +92,30 @@ const BattlePage = () => {
 
             {/* POKEMON DISPLAY */}
             <div className='bg-cyan-200 grid grid-rows-2'>
+                {/* DEFENDER */}
                 <div className='grid grid-cols-2'>
+                    {/* NAME AND HP */}
                     <div className='relative'>
                         <div className='absolute w-4/5 top-[20%] left-[25%] border-8 border-gray-700 rounded bg-orange-200 p-2 space-y-1 '>
                             <p className='text-3xl font-bold'>
                                 {capitalize(round.defender.name)}
                             </p>
+                            {/* HP BAR */}
                             <div className='flex items-center gap-2 bg-gray-700 rounded px-1'>
                                 <span className='text-amber-500 font-bold'>
                                     HP
                                 </span>
                                 <div className='bg-red-200 h-4 rounded w-full relative'>
                                     <span className={`bg-red-500 h-4 rounded w-[${calculateHPBar(round.defender.stats)}%] absolute`}></span>
+                                    
                                 </div>
                                 {/* <span className='bg-red-500 h-4 rounded w-full'></span> */}
                             </div>
+                            {/* HP VALUES */}
+                            <span>{round.defender.stats.battleHP} / {round.defender.stats.hp}</span>
                         </div>
                     </div>
+                    {/* SPRITE */}
                     <div className='bg-cyan-300 grid place-items-center'>
                         <img
                             src={round.defender.sprites.front}
@@ -117,7 +125,9 @@ const BattlePage = () => {
                     </div>
                 </div>
 
+                {/* ATTACKER */}
                 <div className='grid grid-cols-2'>
+                    {/* SPRITE */}
                     <div className='bg-cyan-300 grid place-items-center'>
                         <img
                             src={round.attacker.sprites.back}
@@ -125,17 +135,21 @@ const BattlePage = () => {
                             className='w-1/2'
                         />
                     </div>
+                    {/* NAME AND HP */}
                     <div className='relative'>
                         <div className='absolute w-4/5 top-[20%] right-[25%] border-8 border-gray-700 rounded bg-orange-200 p-2 space-y-1 '>
                             <p className='text-3xl font-bold'>
                                 {capitalize(round.attacker.name)}
                             </p>
+                            {/* HP BAR */}
                             <div className='flex items-center gap-2 bg-gray-700 rounded px-1'>
                                 <span className='text-amber-500 font-bold'>
                                     HP
                                 </span>
                                 <span className='bg-red-500 h-4 rounded w-full'></span>
                             </div>
+                            {/* HP VALUES */}
+                            <span>{round.attacker.stats.battleHP} / {round.attacker.stats.hp}</span>
                         </div>
                     </div>
                 </div>
@@ -152,10 +166,12 @@ const BattlePage = () => {
                         (move, index) => (
                             <button
                                 key={index}
-                                className='border-4 border-white rounded-3xl m-3 text-3xl uppercase font-bold text-white'
+                                className='flex items-center justify-center gap-2 border-4 border-white rounded-3xl m-3 text-3xl uppercase font-bold text-white'
                                 onClick={() => setMove(move)}
                             >
-                                {capitalize(move.name)}
+                                <span>{capitalize(move.name)}</span>
+                                <span>{getEmoji(move.type)}</span>
+                                <span>{move.power}</span>
                             </button>
                         )
                     )}
