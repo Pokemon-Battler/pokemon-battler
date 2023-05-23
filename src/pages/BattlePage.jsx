@@ -6,6 +6,7 @@ import { capitalize } from '../utils/helperFunctions'
 import { useNavigate } from 'react-router-dom'
 import { useStorage } from '../hooks/useStorage'
 import { getEmoji } from '../utils/getEmoji'
+import { changeBackground } from '../utils/changeBackground'
 
 const BattlePage = () => {
     // Hook to navigate to a different page
@@ -96,7 +97,7 @@ const BattlePage = () => {
                 <div className='grid grid-cols-2'>
                     {/* NAME AND HP */}
                     <div className='relative'>
-                        <div className='absolute w-4/5 top-[20%] left-[25%] border-8 border-gray-700 rounded bg-orange-200 p-2 space-y-1 '>
+                        <div className='absolute w-4/5 top-[20%] left-[25%] border-8 border-gray-700 bg-orange-200 p-2 space-y-1 rounded-md rounded-bl-3xl rounded-tr-3xl'>
                             <p className='text-3xl font-bold'>
                                 {capitalize(round.defender.name)}
                             </p>
@@ -112,7 +113,7 @@ const BattlePage = () => {
                                 {/* <span className='bg-red-500 h-4 rounded w-full'></span> */}
                             </div>
                             {/* HP VALUES */}
-                            <span>{round.defender.stats.battleHP} / {round.defender.stats.hp}</span>
+                            <p className='font-semibold text-right'>{round.defender.stats.battleHP} / {round.defender.stats.hp}</p>
                         </div>
                     </div>
                     {/* SPRITE */}
@@ -137,7 +138,7 @@ const BattlePage = () => {
                     </div>
                     {/* NAME AND HP */}
                     <div className='relative'>
-                        <div className='absolute w-4/5 top-[20%] right-[25%] border-8 border-gray-700 rounded bg-orange-200 p-2 space-y-1 '>
+                        <div className='absolute w-4/5 top-[20%] right-[25%] border-8 border-gray-700 bg-orange-200 p-2 space-y-1 rounded rounded-tl-3xl rounded-br-3xl'>
                             <p className='text-3xl font-bold'>
                                 {capitalize(round.attacker.name)}
                             </p>
@@ -149,7 +150,7 @@ const BattlePage = () => {
                                 <span className='bg-red-500 h-4 rounded w-full'></span>
                             </div>
                             {/* HP VALUES */}
-                            <span>{round.attacker.stats.battleHP} / {round.attacker.stats.hp}</span>
+                            <p className='font-semibold text-right'>{round.attacker.stats.battleHP} / {round.attacker.stats.hp}</p>
                         </div>
                     </div>
                 </div>
@@ -166,7 +167,7 @@ const BattlePage = () => {
                         (move, index) => (
                             <button
                                 key={index}
-                                className='flex items-center justify-center gap-2 border-4 border-white rounded-3xl m-3 text-3xl uppercase font-bold text-white'
+                                className={`flex items-center justify-center gap-2 border-4 border-black rounded-3xl m-3 text-3xl uppercase text-black ${changeBackground(move.type)} `}
                                 onClick={() => setMove(move)}
                             >
                                 <span>{capitalize(move.name)}</span>
