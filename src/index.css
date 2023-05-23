@@ -45,7 +45,7 @@
     position: relative;
     perspective: 800px; /* Perspective for 3D effect */
     transform-style: preserve-3d;
-    transition: transform 1s linear;
+    transition: transform 0.8s linear;
 }
 
 .front,

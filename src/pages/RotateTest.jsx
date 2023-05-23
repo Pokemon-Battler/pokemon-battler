@@ -15,7 +15,7 @@ const RotateTest = () => {
 
             <div className={`card h-[30vh] ${boolVal && 'flip-move-down'} border-0 border-green-500`}>
                 <div className='front grid grid-cols-2'>
-                    <div>
+                    <div className='invisible'>
                         Lorem ipsum, dolor sit amet consectetur adipisicing
                         elit. Quaerat quia illum, nesciunt, vel quasi eveniet
                         nam cupiditate enim, modi aut velit totam non adipisci
@@ -41,7 +41,7 @@ const RotateTest = () => {
                                 className='h-full mx-auto'
                             />
                         </div>
-                        <div>
+                        <div className='invisible'>
                             Lorem ipsum, dolor sit amet consectetur adipisicing
                             elit. Quaerat quia illum, nesciunt, vel quasi
                             eveniet nam cupiditate enim, modi aut velit totam
@@ -66,7 +66,7 @@ const RotateTest = () => {
                             className='h-full mx-auto'
                         />
                     </div>
-                    <div>
+                    <div className='invisible'>
                         Lorem ipsum, dolor sit amet consectetur adipisicing
                         elit. Quaerat quia illum, nesciunt, vel quasi eveniet
                         nam cupiditate enim, modi aut velit totam non adipisci
@@ -78,7 +78,7 @@ const RotateTest = () => {
                 </div>
                 <div className={`back ${boolVal && ''}`}>
                     <div className='front grid grid-cols-2'>
-                        <div>
+                        <div className='invisible'>
                             Lorem ipsum, dolor sit amet consectetur adipisicing
                             elit. Quaerat quia illum, nesciunt, vel quasi
                             eveniet nam cupiditate enim, modi aut velit totam
