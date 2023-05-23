@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react'
 import { useGlobalPlayerData } from '../context/globalPlayerData'
 import { usePokemonBattle } from '../hooks/useBattle'
 
-import { capitalize } from '../utils/helperFunctions'
+import { capitalize, pickRandom } from '../utils/helperFunctions'
 import { useNavigate } from 'react-router-dom'
 import { useStorage } from '../hooks/useStorage'
 import { getEmoji } from '../utils/getEmoji'
 import { changeBackground } from '../utils/changeBackground'
 
 import { motion, useSpring } from 'framer-motion'
+
+import bgImage from '../images/backgrounds/1.png'
+// const randomNumber = Math.floor(Math.random() * 3)
 
 const FadeTest = () => {
     // Hook to navigate to a different page
@@ -69,6 +72,7 @@ const FadeTest = () => {
             return false
         }
     }
+
 
     // Generate the HP bar
     useEffect(() => {
@@ -157,7 +161,7 @@ const FadeTest = () => {
     }
 
     return (
-        <div className='h-screen bg-blue-100 grid grid-rows-[3fr_1fr] overflow-hidden'>
+        <div className='h-screen  grid grid-rows-[3fr_1fr] overflow-hidden'>
             <button
                 onClick={handleEndGame}
                 className='absolute top-2 left-2 z-10 border-2 border-pink-500 bg-pink-500/10 px-4 py-2 rounded-lg hover:bg-pink-500 hover:text-white active:bg-pink-400 md:mx-auto'
@@ -166,7 +170,7 @@ const FadeTest = () => {
             </button>
 
             {/* POKEMON DISPLAY */}
-            <div className='bg-cyan-200 grid grid-rows-2'>
+            <div className='grid grid-rows-2' style={{backgroundImage: `url(${bgImage})`, backgroundSize: 'cover' }}>
                 {/* DEFENDER */}
                 <div className='grid grid-cols-2'>
                     {/* NAME AND HP */}
@@ -207,7 +211,7 @@ const FadeTest = () => {
                     </motion.div>
                     {/* SPRITE */}
                     <motion.div
-                        className='bg-cyan-300 grid place-items-center'
+                        className='grid place-items-center'
                         // initial={{ opacity: 0, scale: 0.5, x: -2000 }}
                         initial={{ x: -2000 }}
                         animate={{ x: 0 }}
@@ -225,7 +229,7 @@ const FadeTest = () => {
                 <div className='grid grid-cols-2'>
                     {/* SPRITE */}
                     <motion.div
-                        className='bg-cyan-300 grid place-items-center'
+                        className='grid place-items-center'
                         initial={{ x: 2000 }}
                         animate={{ x: 0 }}
                         transition={{ duration: 2 }}
@@ -278,7 +282,7 @@ const FadeTest = () => {
             {/* BATTLE UI */}
             <div className='bg-cyan-500 grid grid-cols-2'>
                 <div className='m-2 border-8 border-amber-700 bg-slate-200 rounded-xl flex items-center justify-center'>
-                    <div className={`text-3xl font-extrabold transition-opacity ease-in-out duration-300 ${isFading ? 'opacity-0' : 'opacity-100'}`}>
+                    <div className={`text-3xl font-gameboy -tracking-wide font-extrabold transition-opacity ease-in-out duration-300 ${isFading ? 'opacity-0' : 'opacity-100'}`}>
                         {attackResponse}
                     </div>
                 </div>

@@ -46,7 +46,7 @@ export default function HomePage() {
     // Button handler to start the battle
     const startBattle = () => {
         setPersistenPokemonFighter({ player1: playerData.player1, player2: playerData.player2 })
-        navigate('/battle')
+        navigate('/fade')
     }
 
 

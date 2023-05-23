@@ -261,7 +261,7 @@ const BattlePage = () => {
             {/* BATTLE UI */}
             <div className='bg-cyan-500 grid grid-cols-2'>
                 <div className='m-2 border-8 border-amber-700 bg-slate-200 rounded-xl flex items-center justify-center'>
-                    <div className='text-3xl font-extrabold'>
+                    <div className='text-3xl font-extrabold font-gameboy'>
                         {attackResponse}
                     </div>
                 </div>

@@ -13,6 +13,11 @@
     src: url('../public/fonts/Pokemon-Hollow.ttf');
 }
 
+@font-face {
+    font-family: 'gameboy';
+    src: url('../public/fonts/gameboy.ttf');
+}
+
 /* ====== Animations ====== */
 @keyframes blink {
     0% {
