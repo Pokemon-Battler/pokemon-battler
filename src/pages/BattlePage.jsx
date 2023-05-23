@@ -112,7 +112,7 @@ const BattlePage = () => {
 
             // damage receive animation
             setIsDefenderBlinking(true)
-            await pause(2000)
+            await pause(1000)
             setIsDefenderBlinking(false)
 
             // After attack swap the roles
