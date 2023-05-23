@@ -8,6 +8,7 @@ module.exports = {
       fontFamily: {
         'pokemon-solid': ['pokemon-solid'],
         'pokemon-hollow': ['pokemon-hollow'],
+        'gameboy': ['gameboy'],
       }
     },
   },
