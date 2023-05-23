@@ -8,7 +8,7 @@ import { useStorage } from '../hooks/useStorage'
 import { getEmoji } from '../utils/getEmoji'
 import { changeBackground } from '../utils/changeBackground'
 
-import { motion } from 'framer-motion'
+import { motion, useSpring } from 'framer-motion'
 
 const BattlePage = () => {
     // Hook to navigate to a different page
@@ -28,7 +28,16 @@ const BattlePage = () => {
     const [activePlayerTurn, setActivePlayerTurn] = useState(1)
     const [move, setMove] = useState({})
 
-    const [blinking, setBlinking] = useState(false)
+    // animation states
+    const [isDefenderBlinking, setIsDefenderBlinking] = useState(false)
+
+    const [defenderHpNormalized, setDefenderHpNormalized] = useState(1)
+    const [attackerHpNormalized, setAttackerHpNormalized] = useState(1)
+
+    // attempt at trying to set the HP bar to the 100% of the HP - needs work
+    const calculateHPNormalized = (stats) => {
+        return stats.battleHP / stats.hp
+    }
 
     // Random coin toss to see which player goes first
     const randomPlayerFirst = () => {
@@ -38,12 +47,20 @@ const BattlePage = () => {
     }
 
     // local state to store who is the defender and who is the attacker
-    const [round, setRound] = useState(randomPlayerFirst)
+    const [round, setRound] = useState({ attacker: player1, defender: player2 })
 
-    // attempt at trying to set the HP bar to the 100% of the HP - needs work
-    const calculateHPBar = (stats) => {
-        return Math.floor((stats.battleHP / stats.hp) * 100)
-    }
+    // these aren't used yet
+    const defenderHpBar = useSpring(defenderHpNormalized, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.002,
+    })
+
+    const attackerHpBar = useSpring(attackerHpNormalized, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.002,
+    })
 
     // the move state is updated when a player presses a move button
     // this will be when we call the attack function
@@ -60,39 +77,49 @@ const BattlePage = () => {
 
     //         setActivePlayerTurn(activePlayerTurn === 1 ? 2 : 1)
 
-
     //         // After attack swap the roles
     //         setRound({ attacker: round.defender, defender: round.attacker })
     //     }
     //     // eslint-disable-next-line react-hooks/exhaustive-deps
     // }, [move])
     const pause = (ms) => {
-        return new Promise(resolve => setTimeout(resolve, ms));
+        return new Promise((resolve) => setTimeout(resolve, ms))
     }
+
+    useEffect(() => {
+        console.log('p1 battlehp:', player1.stats.battleHP, 'p2 battlehp:', player2.stats.battleHP)
+
+        setDefenderHpNormalized(calculateHPNormalized(round.defender.stats))
+        setAttackerHpNormalized(calculateHPNormalized(round.attacker.stats))
+    }, [move, round])
 
     const handleMoveSelect = async (move) => {
         if (move?.name) {
+            setMove(move)
             // apply the correct attack function arguments
             // depending on whose turn it is
             if (activePlayerTurn === 1) {
-                attack(move, player1, player2, 1)
+                attack(move, player1, player2, 2)
             } else if (activePlayerTurn === 2) {
-                attack(move, player2, player1, 2)
+                attack(move, player2, player1, 1)
             }
 
+            setDefenderHpNormalized(calculateHPNormalized(round.defender.stats))
+            setAttackerHpNormalized(calculateHPNormalized(round.attacker.stats))
+
+            // toggle the active player number
             setActivePlayerTurn(activePlayerTurn === 1 ? 2 : 1)
-        
-            setBlinking(true)
-            // wait one second
-            await pause(1000)
-            setBlinking(false)
+
+            // damage receive animation
+            setIsDefenderBlinking(true)
+            await pause(2000)
+            setIsDefenderBlinking(false)
 
             // After attack swap the roles
             setRound({ attacker: round.defender, defender: round.attacker })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }
-
 
     // My attempt at having local storage
     // useEffect(() => {
@@ -143,9 +170,13 @@ const BattlePage = () => {
                                 </span>
                                 <div className='bg-red-200 h-4 rounded w-full relative'>
                                     <span
-                                        className={`bg-red-500 h-4 rounded w-[${calculateHPBar(
-                                            round.defender.stats
-                                        )}%] absolute`}
+                                        className={`bg-red-500 h-4 absolute`}
+                                        style={{
+                                            width: `${Math.floor(
+                                                defenderHpNormalized * 100
+                                            )}%`,
+                                        }}
+                                        // style={{ defenderHpBar }}
                                     ></span>
                                 </div>
                                 {/* <span className='bg-red-500 h-4 rounded w-full'></span> */}
@@ -168,7 +199,7 @@ const BattlePage = () => {
                         <img
                             src={round.defender.sprites.front}
                             alt=''
-                            className={`w-1/2 ${blinking && 'blink'}`}
+                            className={`w-1/2 ${isDefenderBlinking && 'blink'}`}
                         />
                     </motion.div>
                 </div>
@@ -204,7 +235,18 @@ const BattlePage = () => {
                                 <span className='text-amber-500 font-bold'>
                                     HP
                                 </span>
-                                <span className='bg-red-500 h-4 rounded w-full'></span>
+                                <div className='bg-red-200 h-4 rounded w-full relative'>
+                                    <span
+                                        className={`bg-red-500 h-4 absolute`}
+                                        style={{
+                                            width: `${Math.floor(
+                                                attackerHpNormalized * 100
+                                            )}%`,
+                                        }}
+                                        // style={{ defenderHpBar }}
+                                    ></span>
+                                </div>
+                                {/* <span className='bg-red-500 h-4 rounded w-full'></span> */}
                             </div>
                             {/* HP VALUES */}
                             <p className='font-bold text-right'>
@@ -228,7 +270,7 @@ const BattlePage = () => {
                     {round.attacker.moves.map((move, index) => (
                         <button
                             key={index}
-                            className={`flex items-center justify-center gap-2 border-4 border-black rounded-3xl m-3 text-3xl uppercase text-black ${changeBackground(
+                            className={`flex items-center justify-center gap-2 border-4 border-black rounded-3xl m-3 text-2xl uppercase text-black ${changeBackground(
                                 move.type
                             )} `}
                             // onClick={() => setMove(move)}

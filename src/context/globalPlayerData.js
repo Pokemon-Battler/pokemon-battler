@@ -113,7 +113,7 @@ const pokemonReducer = (prevState, action) => {
 
     switch (action.type) {
         case 'setup':
-            console.log(action.payload)
+            // console.log(action.payload)
             return action.payload
 
         case 'update':
@@ -157,7 +157,7 @@ export function useGlobalPlayerData() {
 // Component to provide global context to app
 export default function PlayerDataProvider(props) {
     // Initialise reducer state and dispatcher
-    const [playerData, playerDispatch] = useReducer(pokemonReducer, {})
+    const [playerData, playerDispatch] = useReducer(pokemonReducer, initialPlayerData)  // replace initialPlayerData with {} for final deploy
 
     return (
         <PokemonPlayers.Provider value={{ playerData, playerDispatch }}>
