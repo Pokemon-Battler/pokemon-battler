@@ -43,7 +43,7 @@ export function usePokemonBattle() {
         let effect = 1
 
         // Standard response
-        let response = "It was effective!"
+        let response = "Attack hit!"
 
         // Get the kind of effect the move type has on the defender type
         let typeEffect = findMatchingKey(move.type, receiver.types[0])
