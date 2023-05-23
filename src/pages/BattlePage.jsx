@@ -113,7 +113,7 @@ const BattlePage = () => {
                                 {/* <span className='bg-red-500 h-4 rounded w-full'></span> */}
                             </div>
                             {/* HP VALUES */}
-                            <p className='font-semibold text-right'>{round.defender.stats.battleHP} / {round.defender.stats.hp}</p>
+                            <p className='font-bold text-right'>{round.defender.stats.battleHP} / {round.defender.stats.hp}</p>
                         </div>
                     </div>
                     {/* SPRITE */}
@@ -150,7 +150,7 @@ const BattlePage = () => {
                                 <span className='bg-red-500 h-4 rounded w-full'></span>
                             </div>
                             {/* HP VALUES */}
-                            <p className='font-semibold text-right'>{round.attacker.stats.battleHP} / {round.attacker.stats.hp}</p>
+                            <p className='font-bold text-right'>{round.attacker.stats.battleHP} / {round.attacker.stats.hp}</p>
                         </div>
                     </div>
                 </div>
