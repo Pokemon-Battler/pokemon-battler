@@ -3,11 +3,10 @@ import { useGlobalPlayerData } from '../context/globalPlayerData'
 import { usePokemonBattle } from '../hooks/useBattle'
 
 import { capitalize, pickRandom } from '../utils/helperFunctions'
+
 import { useNavigate } from 'react-router-dom'
-import { useStorage } from '../hooks/useStorage'
 import { getEmoji } from '../utils/getEmoji'
 import { changeBackground } from '../utils/changeBackground'
-
 import { motion, useSpring } from 'framer-motion'
 
 import bgImage from '../images/backgrounds/1.png'
@@ -76,23 +75,18 @@ const FadeTest = () => {
 
     // Generate the HP bar
     useEffect(() => {
-        console.log('p1 battlehp:', player1.stats.battleHP, 'p2 battlehp:', player2.stats.battleHP)
-
         setDefenderHpNormalized(calculateHPNormalized(round.defender.stats))
         setAttackerHpNormalized(calculateHPNormalized(round.attacker.stats))
     }, [move, round])
 
-    // check if there is a winner, if there is then fade out and naviage to the winner page
+    // check if there is a winner, if there is then fade out and navigate to the winner page
     useEffect(() => {
         let winObject = checkWinner()
 
         if (winObject) {
             setAttackResponse('GAME OVER: ' + winObject.loser.name + ' fainted!')
-            pause(1000)
-                .then(() => {
-                    setIsFading(true)
-                    return pause(1000)
-                })
+            setIsFading(true)
+            pause(4000)
                 .then(navigate('/winner', { state: { winner: winObject.winner } }))
         }
 
@@ -111,19 +105,6 @@ const FadeTest = () => {
             } else if (activePlayerTurn === 2) {
                 attack(move, player2, player1, 1)
             }
-
-            // let winObject = checkWinner()
-
-            // if (winObject) {
-            //     setAttackResponse('GAME OVER: ' + winObject.loser.name + ' fainted!')
-            //     await pause(1000)
-            //     setIsFading(true)
-            //     await pause(1000)
-            //     navigate('/winner')
-            // }
-
-            // setDefenderHpNormalized(calculateHPNormalized(round.defender.stats))
-            // setAttackerHpNormalized(calculateHPNormalized(round.attacker.stats))
 
             // toggle the active player number
             setActivePlayerTurn(activePlayerTurn === 1 ? 2 : 1)
@@ -150,7 +131,6 @@ const FadeTest = () => {
 
             setIsFading(false)
 
-            // setAttackResponse("")
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }

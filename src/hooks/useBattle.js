@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useGlobalPlayerData } from '../context/globalPlayerData'
 import { typeEffectiveness } from '../utils/typeEffectiveness'
+import { capitalize } from '../utils/helperFunctions';
 
 function findMatchingKey(type1, type2) {
     for (const key1 in typeEffectiveness) {
@@ -21,7 +22,7 @@ function findMatchingKey(type1, type2) {
 export function usePokemonBattle() {
     const [isWinner, setIsWinner] = useState(null)
     const [attackResponse, setAttackResponse] = useState("")
-    const { playerData, playerDispatch } = useGlobalPlayerData()
+    const { playerDispatch } = useGlobalPlayerData()
 
     // function to crunch the all the data and generate a single attack damage number
     const calculateDamage = (move, attacker, receiver) => {
@@ -88,7 +89,12 @@ export function usePokemonBattle() {
             // update the health of the reciever
             playerDispatch({ type: 'update', player: player, payload: moveResult.damage })
 
-            setAttackResponse(moveResult.response)
+            if (moveResult.damage > receiver.stats.battleHP) {
+                setAttackResponse('GAME OVER: ' + capitalize(receiver.name) + ' fainted!')
+            } else {
+                setAttackResponse(moveResult.response)
+            }
+
             // console.log(moveResult.response)
 
         } else {
