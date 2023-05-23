@@ -54,13 +54,18 @@ export default function HomePage() {
                     <LoadingPokeball />
                 ) :
                 (
-                    <div className='max-h-screen grid grid-rows-[auto_3fr_2fr]'>
+                    <div className='max-h-screen grid grid-rows-[auto_2fr_2fr] mb-3'>
+
                         <h1 className='text-5xl text-center p-2 font-pokemon-solid mb-4'>
                             Pokemon Battler
                         </h1>
 
                         <div className='grid grid-cols-[1fr_auto_1fr] gap-3 px-2'>
-                            {playerData?.player1 && <PokemonCard playerNum={1} pokemon={playerData.player1} />}
+
+                            <div className='drop-shadow-lg'>
+                                {playerData?.player1 && <PokemonCard playerNum={1} pokemon={playerData.player1} />}
+                            </div>
+
                             <div className='self-center justify-center text-5xl flex flex-col'>
                                 <button onClick={startBattle}
                                     className='border-2 border-green-500 bg-green-500/10 px-4 py-2 rounded-lg hover:bg-green-500 hover:text-white active:bg-green-400 md:mx-auto'>
@@ -79,9 +84,14 @@ export default function HomePage() {
                                     )}
                                 </button>
                             </div>
-                            {playerData?.player2 && <PokemonCard playerNum={2} pokemon={playerData.player2} />}
+
+                            <div className='drop-shadow-lg'>
+                                {playerData?.player2 && <PokemonCard playerNum={2} pokemon={playerData.player2} />}
+                            </div>
                         </div>
+
                         <PokemonPickerList playerNum={activePlayer} />
+
                     </div>
                 )
             }

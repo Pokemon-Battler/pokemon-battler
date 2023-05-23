@@ -31,7 +31,7 @@ const PokemonPickerList = ({ playerNum }) => {
 
 
     return (
-        <div className='grid grid-cols-4 gap-2 p-2 overflow-y-scroll'>
+        <div className='grid grid-cols-4 gap-2 p-2 mt-4 overflow-y-scroll'>
             {pokemonList &&
                 pokemonList.map((pokemon, index) => (
                     <div
