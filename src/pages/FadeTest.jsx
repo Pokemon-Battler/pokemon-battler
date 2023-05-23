@@ -214,9 +214,9 @@ const FadeTest = () => {
                         transition={{ duration: 2 }}
                     >
                         <img
-                            src={round.defender.sprites.front}
+                            src={round.defender.sprites.aniFront}
                             alt=''
-                            className={`w-1/2 ${isDefenderBlinking && 'blink'} transition-opacity ease-in-out duration-300 ${isFading ? 'opacity-0' : 'opacity-100'}`}
+                            className={`${isDefenderBlinking && 'blink'} w-1/5 transition-opacity ease-in-out duration-300 ${isFading ? 'opacity-0' : 'opacity-100'}`}
                         />
                     </motion.div>
                 </div>
@@ -231,9 +231,9 @@ const FadeTest = () => {
                         transition={{ duration: 2 }}
                     >
                         <img
-                            src={round.attacker.sprites.back}
+                            src={round.attacker.sprites.aniBack}
                             alt=''
-                            className={`w-1/2 transition-opacity ease-in-out duration-300 ${isFading ? 'opacity-0' : 'opacity-100'}`}
+                            className={`w-1/5 transition-opacity ease-in-out duration-300 ${isFading ? 'opacity-0' : 'opacity-100'}`}
                         />
                     </motion.div>
                     {/* NAME AND HP */}

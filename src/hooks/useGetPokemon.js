@@ -65,7 +65,7 @@ export function useGetPokemon() {
             moves: [],
             types: [],
             stats: { battleHP: pokemonData.stats[0].base_stat },
-            sprites: { front: pokemonData.sprites.front_default, back: pokemonData.sprites.back_default, highRes: pokemonData.sprites.other["official-artwork"].front_default }
+            sprites: { front: pokemonData.sprites.front_default, back: pokemonData.sprites.back_default, highRes: pokemonData.sprites.other["official-artwork"].front_default, gif: `https://play.pokemonshowdown.com/sprites/xyani/${pokemonData.name}.gif` }
         }
 
         for (let abilityElement of pokemonData.abilities) {

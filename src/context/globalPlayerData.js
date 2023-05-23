@@ -50,7 +50,8 @@ const initialPlayerData = {
         sprites: {
             front: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
             back: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png",
-            highRes: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+            highRes: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+            aniFront: `https://play.pokemonshowdown.com/sprites/xyani/bulbasaur.gif`, aniBack: `https://play.pokemonshowdown.com/sprites/ani-back/bulbasaur.gif`
         }
     },
     player2: {
@@ -100,7 +101,8 @@ const initialPlayerData = {
         sprites: {
             front: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
             back: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/4.png",
-            highRes: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png"
+            highRes: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
+            aniFront: `https://play.pokemonshowdown.com/sprites/xyani/charmander.gif`, aniBack: `https://play.pokemonshowdown.com/sprites/ani-back/charmander.gif`
         }
     }
 }
