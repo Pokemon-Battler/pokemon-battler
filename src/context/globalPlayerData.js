@@ -113,23 +113,33 @@ const pokemonReducer = (prevState, action) => {
 
     switch (action.type) {
         case 'setup':
-            // console.log(action.payload)
             return action.payload
 
         case 'update':
             if (action.player === 1) {
-                // console.log(action.payload)
-                let tempPlayer1 = stateEditable.player1
-                // console.log(tempPlayer1.stats.battleHP)
-                tempPlayer1.stats.battleHP -= action.payload
-                // console.log(tempPlayer1.stats.battleHP)
-                stateEditable = { ...stateEditable, player1: tempPlayer1 }
-            } else {
-                let tempPlayer2 = stateEditable.player2
-                tempPlayer2.stats.battleHP -= action.payload
+                // Deduct damage amount from battle HP
+                stateEditable.player1.stats.battleHP -= action.payload
 
-                stateEditable = { ...stateEditable, player2: tempPlayer2 }
+                // Prevent battle HP going below 0
+                if (stateEditable.player1.stats.battleHP < 0) {
+                    stateEditable.player1.stats.battleHP = 0
+                }
+
+                // Save new state
+                stateEditable = { ...stateEditable, player1: stateEditable.player1 }
+            } else {
+                // Deduct damage amount from battle HP
+                stateEditable.player2.stats.battleHP -= action.payload
+
+                // Prevent battle HP going below 0
+                if (stateEditable.player2.stats.battleHP < 0) {
+                    stateEditable.player2.stats.battleHP = 0
+                }
+
+                // Save new state
+                stateEditable = { ...stateEditable, player2: stateEditable.player2 }
             }
+            // Return updated state
             return stateEditable
 
         case 'set':
