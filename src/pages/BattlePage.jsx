@@ -28,6 +28,8 @@ const BattlePage = () => {
     const [activePlayerTurn, setActivePlayerTurn] = useState(1)
     const [move, setMove] = useState({})
 
+    const [blinking, setBlinking] = useState(false)
+
     // Random coin toss to see which player goes first
     const randomPlayerFirst = () => {
         return Math.random() > 0.5
@@ -45,8 +47,30 @@ const BattlePage = () => {
 
     // the move state is updated when a player presses a move button
     // this will be when we call the attack function
-    useEffect(() => {
-        // Check the move has a value, refreshing the page will remove the state data
+    // useEffect(() => {
+    //     // Check the move has a value, refreshing the page will remove the state data
+    //     if (move?.name) {
+    //         // apply the correct attack function arguments
+    //         // depending on whose turn it is
+    //         if (activePlayerTurn === 1) {
+    //             attack(move, player1, player2, 1)
+    //         } else if (activePlayerTurn === 2) {
+    //             attack(move, player2, player1, 2)
+    //         }
+
+    //         setActivePlayerTurn(activePlayerTurn === 1 ? 2 : 1)
+
+
+    //         // After attack swap the roles
+    //         setRound({ attacker: round.defender, defender: round.attacker })
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [move])
+    const pause = (ms) => {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    const handleMoveSelect = async (move) => {
         if (move?.name) {
             // apply the correct attack function arguments
             // depending on whose turn it is
@@ -57,12 +81,18 @@ const BattlePage = () => {
             }
 
             setActivePlayerTurn(activePlayerTurn === 1 ? 2 : 1)
+        
+            setBlinking(true)
+            // wait one second
+            await pause(1000)
+            setBlinking(false)
 
             // After attack swap the roles
             setRound({ attacker: round.defender, defender: round.attacker })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [move])
+    }
+
 
     // My attempt at having local storage
     // useEffect(() => {
@@ -138,7 +168,7 @@ const BattlePage = () => {
                         <img
                             src={round.defender.sprites.front}
                             alt=''
-                            className='w-1/2'
+                            className={`w-1/2 ${blinking && 'blink'}`}
                         />
                     </motion.div>
                 </div>
@@ -201,7 +231,8 @@ const BattlePage = () => {
                             className={`flex items-center justify-center gap-2 border-4 border-black rounded-3xl m-3 text-3xl uppercase text-black ${changeBackground(
                                 move.type
                             )} `}
-                            onClick={() => setMove(move)}
+                            // onClick={() => setMove(move)}
+                            onClick={() => handleMoveSelect(move)}
                         >
                             <span>{capitalize(move.name)}</span>
                             <span>{getEmoji(move.type)}</span>
