@@ -76,11 +76,6 @@ export function usePokemonBattle() {
     }
 
     // main function to make an attack, include the attack move object, the attacker and reciever pokemon objects, and the player string (eg: "player1")
-
-    // move: object
-    // attack: player object from context
-    // receiver: player object from context
-    // player: number
     const attack = (move, attacker, receiver, player) => {
         // console.log(`Player ${player} with ${attacker.name} used ${move.name}!`)
 
@@ -96,33 +91,14 @@ export function usePokemonBattle() {
             setAttackResponse(moveResult.response)
             // console.log(moveResult.response)
 
-            // check if there is a winner after the attack
-            checkWinner()
-
         } else {
             // Attack has missed!
             setAttackResponse("Attack missed!")
-
-            // Confirm no winner has been found
-            checkWinner()
         }
     }
 
     // Check if there is a winner and set the AttackResponse and isWinner values
-    const checkWinner = () => {
-        const { player1, player2 } = playerData
-
-        if (player1.stats.hp <= 0) {
-            setIsWinner(player1)
-            setAttackResponse('GAME OVER: ' + player1.name + ' fainted!')
-        } else if (player2.hp <= 0) {
-            setIsWinner(player2)
-            setAttackResponse('GAME OVER: ' + player2.name + ' fainted!')
-        } else {
-            setIsWinner(false)
-        }
-    }
 
 
-    return { attack, checkWinner, isWinner, attackResponse }
+    return { attack, setIsWinner, isWinner, attackResponse, setAttackResponse }
 }
