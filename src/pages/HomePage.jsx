@@ -46,7 +46,7 @@ export default function HomePage() {
     // Button handler to start the battle
     const startBattle = () => {
         setPersistenPokemonFighter({ player1: playerData.player1, player2: playerData.player2 })
-        navigate('/fade')
+        navigate('/battle')
     }
 
 
@@ -57,7 +57,7 @@ export default function HomePage() {
                     <LoadingPokeball />
                 ) :
                 (
-                    <div className='max-h-screen grid grid-rows-[auto_2fr_2fr] mb-3'>
+                    <div className='bg-green-400/10 max-h-screen grid grid-rows-[auto_2fr_2fr] mb-3'>
 
                         <h1 className='text-5xl text-center p-2 font-pokemon-solid mb-4'>
                             Pokemon Battler

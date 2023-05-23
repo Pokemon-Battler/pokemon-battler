@@ -1,13 +1,11 @@
 import { useGlobalPokemonData } from '../context/globalPokemonList'
 import { capitalize } from '../utils/helperFunctions'
 import { useGlobalPlayerData } from '../context/globalPlayerData'
-import { useEffect, useState } from 'react'
 
 
 const PokemonPickerList = ({ playerNum }) => {
     const { pokemonList } = useGlobalPokemonData()
     const { playerData, playerDispatch } = useGlobalPlayerData()
-    const [classNames, setClassNames] = useState('flex items-center justify-center rounded bg-red-500/10 hover:bg-red-500/20');
 
 
     // Need to do [id - 1] because the pokemonList is 0-indexed

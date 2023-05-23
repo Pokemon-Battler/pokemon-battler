@@ -95,12 +95,15 @@ export function usePokemonBattle() {
                 setAttackResponse(moveResult.response)
             }
 
-            // console.log(moveResult.response)
+            return { damage: moveResult.damage, remainingHP: receiver.stats.battleHP }
 
         } else {
             // Attack has missed!
             setAttackResponse("Attack missed!")
+            return { damage: 0, remainingHP: receiver.stats.battleHP }
         }
+
+
     }
 
     // Check if there is a winner and set the AttackResponse and isWinner values
