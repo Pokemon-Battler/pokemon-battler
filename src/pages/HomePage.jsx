@@ -8,6 +8,7 @@ import PokemonPickerList from '../components/PokemonPickerList'
 import PokemonCard from '../components/PokemonCard'
 import LoadingPokeball from '../components/LoadingPokeball'
 import { useNavigate } from 'react-router-dom'
+import { motion, useAnimate } from "framer-motion";
 
 
 export default function HomePage() {
@@ -17,6 +18,7 @@ export default function HomePage() {
     const { playerData, playerDispatch } = useGlobalPlayerData()
     const [activePlayer, setActivePlayer] = useState(1)
     const navigate = useNavigate()
+    const [scope, animate] = useAnimate()
 
     // Make all the API calls and get pokemon data on page refresh
     useEffect(() => {
@@ -38,6 +40,7 @@ export default function HomePage() {
     const handleChangeActivePlayer = () => {
         setActivePlayer(activePlayer === 1 ? 2 : 1)
         console.log(activePlayer)
+        animate(scope.current, { translateY: -5 }, { duration: 0.2 })
     }
 
     // Button handler to start the battle
@@ -61,10 +64,17 @@ export default function HomePage() {
                         </h1>
 
                         <div className='grid grid-cols-[1fr_auto_1fr] gap-3 px-2'>
-
-                            <div className='drop-shadow-lg'>
-                                {playerData?.player1 && <PokemonCard playerNum={1} pokemon={playerData.player1} />}
-                            </div>
+                            <motion.div
+                                className={`drop-shadow-lg ${activePlayer === 1 ? 'animate-up' : 'animate-down'}`}
+                                initial={{ scale: activePlayer === 1 ? 1 : 0.9 }} // Initial position based on active player
+                                animate={{ scale: activePlayer === 1 ? 1 : 0.9 }} // Animation based on active player
+                                transition={{ duration: 0.3 }} // Animation duration in seconds
+                                ref={scope}
+                            >
+                                {playerData?.player1 && (
+                                    <PokemonCard playerNum={1} pokemon={playerData.player1} />
+                                )}
+                            </motion.div>
 
                             <div className='self-center justify-center text-5xl flex flex-col'>
                                 <button onClick={startBattle}
@@ -85,9 +95,18 @@ export default function HomePage() {
                                 </button>
                             </div>
 
-                            <div className='drop-shadow-lg'>
-                                {playerData?.player2 && <PokemonCard playerNum={2} pokemon={playerData.player2} />}
-                            </div>
+                            <motion.div
+                                className={`drop-shadow-lg ${activePlayer === 2 ? 'animate-up' : 'animate-down'}`}
+                                initial={{ scale: activePlayer === 2 ? 1 : 0.9 }} // Initial position based on active player
+                                animate={{ scale: activePlayer === 2 ? 1 : 0.9 }} // Animation based on active player
+                                transition={{ duration: 0.3 }} // Animation duration in seconds
+                                ref={scope}
+                            >
+                                {playerData?.player2 && (
+                                    <PokemonCard playerNum={2} pokemon={playerData.player2} />
+                                )}
+                            </motion.div>
+
                         </div>
 
                         <PokemonPickerList playerNum={activePlayer} />

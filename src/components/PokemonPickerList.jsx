@@ -20,13 +20,13 @@ const PokemonPickerList = ({ playerNum }) => {
         let border = ''
 
         if (playerData?.player1?.id === id && playerData?.player2?.id === id) {
-            border = 'border-purple-600 border-2 '
+            border = 'border-purple-600 '
         } else if (playerData?.player1?.id === id) {
-            border = 'border-red-600 border-2 '
+            border = 'border-red-600 '
         } else if (playerData?.player2?.id === id) {
-            border = 'border-blue-600 border-2 '
+            border = 'border-blue-600 '
         }
-        return `${border}flex items-center justify-center rounded bg-red-500/10 hover:bg-red-500/20`
+        return `${border}flex items-center border-2 justify-center rounded bg-red-500/10 hover:bg-red-500/20`
     }
 
 
