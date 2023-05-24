@@ -54,7 +54,7 @@ export default function BattlePage() {
     //     restDelta: 0.002,
     // })
 
-    // Pause function
+    // Pause execution in an async function by a number of milliseconds
     const pause = (ms) => {
         return new Promise((resolve) => setTimeout(resolve, ms))
     }
@@ -160,6 +160,9 @@ export default function BattlePage() {
                 Go back
             </button>
 
+
+
+            {/* ============== WINNER OVERLAY ================== */}
             <WinnerOverlayContainer isVisible={isWinner}>
                 <div className='text-lg font-gameboy flex flex-col items-center bg-amber-300 p-5 rounded-lg gap-2 border-4 border-blue-600'>
                     <ConfettiExplosion zIndex={10000} />
@@ -178,10 +181,19 @@ export default function BattlePage() {
                 </div>
             </WinnerOverlayContainer>
 
+
             {/* POKEMON DISPLAY */}
             <div className='grid grid-rows-2' style={{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover' }}>
-                {/* DEFENDER */}
+
+
+
+
+
+
+
+                {/* ==================== DEFENDER ======================== */}
                 <div className='grid grid-cols-2'>
+
                     {/* NAME AND HP */}
                     <motion.div
                         className='relative'
@@ -234,7 +246,10 @@ export default function BattlePage() {
                     </motion.div>
                 </div>
 
-                {/* ATTACKER */}
+
+
+
+                {/* ==================== DEFENDER ======================== */}
                 <div className='grid grid-cols-2'>
                     {/* SPRITE */}
                     <motion.div
@@ -287,6 +302,10 @@ export default function BattlePage() {
                     </motion.div>
                 </div>
             </div>
+
+
+
+
 
             {/* BATTLE UI */}
             <div className='bg-cyan-500 grid grid-cols-2'>
