@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import { getEmoji } from '../utils/getEmoji'
 import { changeBackground } from '../utils/changeBackground'
 import { motion } from 'framer-motion'
-import bgImage from '../images/backgrounds/1.png'
+import bgImages from '../images/backgrounds'
+import { pickRandom } from '../utils/helperFunctions'
 import WinnerOverlayContainer from '../components/WinnerOverlayContainer'
 import ConfettiExplosion from 'react-confetti-explosion';
 
@@ -45,6 +46,10 @@ export default function BattlePage3d() {
         return Math.floor(player.stats.battleHP / player.stats.hp * 100)
     }
 
+    console.log(bgImages)
+    console.log(bgImages[1])
+    const bgImage = pickRandom(bgImages)
+    // console.log(bgImage)
     // // these aren't used yet
     // const defenderHpBar = useSpring(defenderHpNormalized, {
     //     stiffness: 100,
@@ -259,7 +264,7 @@ export default function BattlePage3d() {
                             <img
                                 src={player2.sprites.aniFront}
                                 alt=''
-                                className={`${isDefenderBlinking && 'blink'} w-2/5 transition-opacity ease-in-out duration-300`}
+                                className={`${isDefenderBlinking && 'blink'} w-1/4 transition-opacity ease-in-out duration-300`}
                             />
                         </motion.div>
                     </div>
@@ -277,7 +282,7 @@ export default function BattlePage3d() {
                             <img
                                 src={player2.sprites.aniBack}
                                 alt=''
-                                className={` w-2/5 transition-opacity ease-in-out duration-300`}
+                                className={` w-1/4 transition-opacity ease-in-out duration-300`}
                             />
                         </motion.div>
                         {/* NAME AND HP */}
@@ -346,7 +351,7 @@ export default function BattlePage3d() {
                             <img
                                 src={player1.sprites.aniBack}
                                 alt=''
-                                className={`w-2/5 transition-opacity ease-in-out duration-300'}`}
+                                className={`w-1/4 transition-opacity ease-in-out duration-300'}`}
                             />
                         </motion.div>
                         {/* NAME AND HP */}
@@ -431,7 +436,7 @@ export default function BattlePage3d() {
                             <img
                                 src={player1.sprites.aniFront}
                                 alt=''
-                                className={`${isDefenderBlinking && 'blink'} w-2/5 transition-opacity ease-in-out duration-300`}
+                                className={`${isDefenderBlinking && 'blink'} w-1/4 transition-opacity ease-in-out duration-300`}
                             />
                         </motion.div>
                     </div>
