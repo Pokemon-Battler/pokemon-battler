@@ -33,15 +33,13 @@ export default function BattlePage3d() {
 
     const [isFading, setIsFading] = useState(false)
 
-    const [defenderHpNormalized, setDefenderHpNormalized] = useState(1)
-    const [attackerHpNormalized, setAttackerHpNormalized] = useState(1)
 
     // local state to store who is the defender and who is the attacker
     const [round, setRound] = useState({ attacker: player1, defender: player2 })
 
     const [isFlipped, setIsFlipped] = useState(false)
 
-    const [bgImage, setBgImage] = useState(() => pickRandom(bgImages))
+    const [bgImage] = useState(() => pickRandom(bgImages))
 
     const [battleLog, setBattleLog] = useState([])
 
@@ -50,18 +48,6 @@ export default function BattlePage3d() {
         return Math.floor((player.stats.battleHP / player.stats.hp) * 100)
     }
 
-    // // these aren't used yet
-    // const defenderHpBar = useSpring(defenderHpNormalized, {
-    //     stiffness: 100,
-    //     damping: 30,
-    //     restDelta: 0.002,
-    // })
-
-    // const attackerHpBar = useSpring(attackerHpNormalized, {
-    //     stiffness: 100,
-    //     damping: 30,
-    //     restDelta: 0.002,
-    // })
 
     // Pause function
     const pause = (ms) => {
@@ -83,17 +69,12 @@ export default function BattlePage3d() {
 
     // Generate the HP bar
     useEffect(() => {
-        // setDefenderHpNormalized(calculateHpPercent(round.defender))
-        // setAttackerHpNormalized(calculateHpPercent(round.attacker))
-
-        // console.log(battleLog)
-        // console.log(attackData)
-
         // don't add to the battleLog if the attackData object is empty
         if (Object.keys(attackData).length > 0) {
 
             setBattleLog((prev) => [...prev, attackData].slice(-5))
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [move])
 
     // check if there is a winner, if there is then fade out and navigate to the winner page
@@ -215,9 +196,8 @@ export default function BattlePage3d() {
                 >
                     {/* ==================== PLAYER 2 (defender) ======================== */}
                     <div
-                        className={`card ${
-                            isFlipped && 'flip-move-down'
-                        } border-0 border-green-500`}
+                        className={`card ${isFlipped && 'flip-move-down'
+                            } border-0 border-green-500`}
                     >
                         {/* ====== FRONT ====== */}
                         <div className='front card grid grid-cols-2'>
@@ -229,9 +209,8 @@ export default function BattlePage3d() {
                                 transition={{ duration: 2, delay: 1.5 }}
                             >
                                 <div
-                                    className={`absolute w-4/5 top-[20%] left-[25%] border-8 border-gray-700 bg-orange-200 p-2 space-y-1 rounded-md rounded-bl-3xl rounded-tr-3xl transition-opacity ease-in-out duration-300 ${
-                                        isFading ? 'opacity-0' : 'opacity-100'
-                                    }`}
+                                    className={`absolute w-4/5 top-[20%] left-[25%] border-8 border-gray-700 bg-orange-200 p-2 space-y-1 rounded-md rounded-bl-3xl rounded-tr-3xl transition-opacity ease-in-out duration-300 ${isFading ? 'opacity-0' : 'opacity-100'
+                                        }`}
                                 >
                                     <p className='text-3xl font-bold'>
                                         Player 2: {capitalize(player2.name)}
@@ -249,7 +228,7 @@ export default function BattlePage3d() {
                                                         player2
                                                     )}%`,
                                                 }}
-                                                // style={{ defenderHpBar }}
+                                            // style={{ defenderHpBar }}
                                             ></span>
                                         </div>
                                         {/* <span className='bg-red-500 h-4 rounded w-full'></span> */}
@@ -272,9 +251,8 @@ export default function BattlePage3d() {
                                 <img
                                     src={player2.sprites.aniFront}
                                     alt=''
-                                    className={`${
-                                        isDefenderBlinking && 'blink'
-                                    } w-1/4 transition-opacity ease-in-out duration-300`}
+                                    className={`${isDefenderBlinking && 'blink'
+                                        } w-1/4 transition-opacity ease-in-out duration-300`}
                                 />
                             </motion.div>
                         </div>
@@ -283,10 +261,10 @@ export default function BattlePage3d() {
                             {/* SPRITE */}
                             <motion.div
                                 className='grid place-items-center'
-                                // initial={{ opacity: 0, scale: 0.5, x: -2000 }}
-                                // initial={{ x: -2000 }}
-                                // animate={{ x: 0 }}
-                                // transition={{ duration: 2 }}
+                            // initial={{ opacity: 0, scale: 0.5, x: -2000 }}
+                            // initial={{ x: -2000 }}
+                            // animate={{ x: 0 }}
+                            // transition={{ duration: 2 }}
                             >
                                 <img
                                     src={player2.sprites.aniBack}
@@ -302,9 +280,8 @@ export default function BattlePage3d() {
                                 transition={{ duration: 2, delay: 1.5 }}
                             >
                                 <div
-                                    className={`absolute w-4/5 top-[20%] right-[25%] border-8 border-gray-700 bg-orange-200 p-2 space-y-1 rounded-md rounded-tl-3xl rounded-br-3xl transition-opacity ease-in-out duration-300 ${
-                                        isFading ? 'opacity-0' : 'opacity-100'
-                                    }`}
+                                    className={`absolute w-4/5 top-[20%] right-[25%] border-8 border-gray-700 bg-orange-200 p-2 space-y-1 rounded-md rounded-tl-3xl rounded-br-3xl transition-opacity ease-in-out duration-300 ${isFading ? 'opacity-0' : 'opacity-100'
+                                        }`}
                                 >
                                     <p className='text-3xl font-bold'>
                                         Player 2: {capitalize(player2.name)}
@@ -322,7 +299,7 @@ export default function BattlePage3d() {
                                                         player2
                                                     )}%`,
                                                 }}
-                                                // style={{ defenderHpBar }}
+                                            // style={{ defenderHpBar }}
                                             ></span>
                                         </div>
                                         {/* <span className='bg-red-500 h-4 rounded w-full'></span> */}
@@ -339,9 +316,8 @@ export default function BattlePage3d() {
 
                     {/* ==================== Player 1 (attacker) ======================== */}
                     <div
-                        className={`card ${
-                            isFlipped && 'flip-move-up'
-                        } border-0 border-green-500`}
+                        className={`card ${isFlipped && 'flip-move-up'
+                            } border-0 border-green-500`}
                     >
                         {/* ====== FRONT ====== */}
                         <div className='front grid grid-cols-2'>
@@ -366,9 +342,8 @@ export default function BattlePage3d() {
                                 transition={{ duration: 2, delay: 1.5 }}
                             >
                                 <div
-                                    className={`absolute w-4/5 top-[20%] right-[25%] border-8 border-gray-700 bg-orange-200 p-2 space-y-1 rounded rounded-tl-3xl rounded-br-3xl transition-opacity ease-in-out duration-300 ${
-                                        isFading ? 'opacity-0' : 'opacity-100'
-                                    }`}
+                                    className={`absolute w-4/5 top-[20%] right-[25%] border-8 border-gray-700 bg-orange-200 p-2 space-y-1 rounded rounded-tl-3xl rounded-br-3xl transition-opacity ease-in-out duration-300 ${isFading ? 'opacity-0' : 'opacity-100'
+                                        }`}
                                 >
                                     <p className='text-3xl font-bold'>
                                         Player 1: {capitalize(player1.name)}
@@ -386,7 +361,7 @@ export default function BattlePage3d() {
                                                         player1
                                                     )}%`,
                                                 }}
-                                                // style={{ defenderHpBar }}
+                                            // style={{ defenderHpBar }}
                                             ></span>
                                         </div>
                                         {/* <span className='bg-red-500 h-4 rounded w-full'></span> */}
@@ -404,14 +379,13 @@ export default function BattlePage3d() {
                             {/* NAME AND HP */}
                             <motion.div
                                 className='relative'
-                                // initial={{ x: 2000 }}
-                                // animate={{ x: 0 }}
-                                // transition={{ duration: 2, delay: 1.5 }}
+                            // initial={{ x: 2000 }}
+                            // animate={{ x: 0 }}
+                            // transition={{ duration: 2, delay: 1.5 }}
                             >
                                 <div
-                                    className={`absolute w-4/5 top-[20%] left-[25%] border-8 border-gray-700 bg-orange-200 p-2 space-y-1 rounded rounded-bl-3xl rounded-tr-3xl transition-opacity ease-in-out duration-300 ${
-                                        isFading ? 'opacity-0' : 'opacity-100'
-                                    }`}
+                                    className={`absolute w-4/5 top-[20%] left-[25%] border-8 border-gray-700 bg-orange-200 p-2 space-y-1 rounded rounded-bl-3xl rounded-tr-3xl transition-opacity ease-in-out duration-300 ${isFading ? 'opacity-0' : 'opacity-100'
+                                        }`}
                                 >
                                     <p className='text-3xl font-bold'>
                                         Player 1: {capitalize(player1.name)}
@@ -429,7 +403,7 @@ export default function BattlePage3d() {
                                                         player1
                                                     )}%`,
                                                 }}
-                                                // style={{ defenderHpBar }}
+                                            // style={{ defenderHpBar }}
                                             ></span>
                                         </div>
                                         {/* <span className='bg-red-500 h-4 rounded w-full'></span> */}
@@ -451,9 +425,8 @@ export default function BattlePage3d() {
                                 <img
                                     src={player1.sprites.aniFront}
                                     alt=''
-                                    className={`${
-                                        isDefenderBlinking && 'blink'
-                                    } w-1/4 transition-opacity ease-in-out duration-300`}
+                                    className={`${isDefenderBlinking && 'blink'
+                                        } w-1/4 transition-opacity ease-in-out duration-300`}
                                 />
                             </motion.div>
                         </div>
@@ -482,9 +455,8 @@ export default function BattlePage3d() {
                 <div className='bg-cyan-700 grid grid-cols-2'>
                     <div className='m-2 border-8 border-amber-700 bg-slate-200 rounded-xl flex items-center justify-center'>
                         <div
-                            className={`text-3xl font-gameboy -tracking-wide font-extrabold transition-opacity ease-in-out duration-300 ${
-                                isFading ? 'opacity-0' : 'opacity-100'
-                            }`}
+                            className={`text-3xl font-gameboy -tracking-wide font-extrabold transition-opacity ease-in-out duration-300 ${isFading ? 'opacity-0' : 'opacity-100'
+                                }`}
                         >
                             {attackResponse}
                         </div>
@@ -496,9 +468,8 @@ export default function BattlePage3d() {
                                 key={index}
                                 className={`border-4 border-black rounded-xl m-3 text-2xl space-y-1 uppercase text-black ${changeBackground(
                                     move.type
-                                )} transition-opacity ease-in-out duration-300 ${
-                                    isFading ? 'opacity-0' : 'opacity-100'
-                                } hover:border-emerald-300 active:invert`}
+                                )} transition-opacity ease-in-out duration-300 ${isFading ? 'opacity-0' : 'opacity-100'
+                                    } hover:border-emerald-300 active:invert`}
                                 // onClick={() => setMove(move)}
                                 onClick={() => handleMoveSelect(move)}
                             >
