@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    @apply bg-green-400/10 
+}
+
 /* ====== Fonts ====== */
 @font-face {
     font-family: 'pokemon-solid';
