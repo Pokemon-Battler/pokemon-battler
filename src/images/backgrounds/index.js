@@ -1,19 +1,11 @@
-// const images = []
+import grass from './grass.png'
+import street from './street.png'
+import water from './water.png'
 
-// function importAll(r) {
-//   r.keys().forEach((key) => images.push(r(key).default))
-// }
-
-// importAll(require.context('.', false, /\.(png|jpe?g|svg)$/))
-
-// export default images
-
-import image1 from './1.png'
-import image2 from './2.png'
-import image3 from './3.png'
-
-export default [
-	image1,
-	image2,
-	image3
+const bgImages = [
+	grass,
+	street,
+	water
 ]
+
+export default bgImages
