@@ -41,15 +41,14 @@ export default function BattlePage3d() {
 
     const [isFlipped, setIsFlipped] = useState(false)
 
+    const [bgImage, setBgImage] = useState(() => pickRandom(bgImages))
+
     // attempt at trying to set the HP bar to the 100% of the HP - needs work
     const calculateHpPercent = (player) => {
         return Math.floor(player.stats.battleHP / player.stats.hp * 100)
     }
 
-    console.log(bgImages)
-    console.log(bgImages[1])
-    const bgImage = pickRandom(bgImages)
-    // console.log(bgImage)
+
     // // these aren't used yet
     // const defenderHpBar = useSpring(defenderHpNormalized, {
     //     stiffness: 100,
