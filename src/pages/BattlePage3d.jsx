@@ -31,17 +31,16 @@ export default function BattlePage3d() {
     // animation states
     const [isDefenderBlinking, setIsDefenderBlinking] = useState(false)
 
+    // hide/show the UI with a fade transition
     const [isFading, setIsFading] = useState(false)
-
-    const [defenderHpNormalized, setDefenderHpNormalized] = useState(1)
-    const [attackerHpNormalized, setAttackerHpNormalized] = useState(1)
 
     // local state to store who is the defender and who is the attacker
     const [round, setRound] = useState({ attacker: player1, defender: player2 })
 
     const [isFlipped, setIsFlipped] = useState(false)
 
-    const [bgImage, setBgImage] = useState(() => pickRandom(bgImages))
+    // pick a random image when the component first loads
+    const [bgImage] = useState(() => pickRandom(bgImages))
 
     const [battleLog, setBattleLog] = useState([])
 
@@ -49,19 +48,6 @@ export default function BattlePage3d() {
     const calculateHpPercent = (player) => {
         return Math.floor((player.stats.battleHP / player.stats.hp) * 100)
     }
-
-    // // these aren't used yet
-    // const defenderHpBar = useSpring(defenderHpNormalized, {
-    //     stiffness: 100,
-    //     damping: 30,
-    //     restDelta: 0.002,
-    // })
-
-    // const attackerHpBar = useSpring(attackerHpNormalized, {
-    //     stiffness: 100,
-    //     damping: 30,
-    //     restDelta: 0.002,
-    // })
 
     // Pause function
     const pause = (ms) => {
@@ -81,20 +67,20 @@ export default function BattlePage3d() {
         }
     }
 
-    // Generate the HP bar
+    // set battleLog
     useEffect(() => {
-        // setDefenderHpNormalized(calculateHpPercent(round.defender))
-        // setAttackerHpNormalized(calculateHpPercent(round.attacker))
-
         // console.log(battleLog)
         // console.log(attackData)
 
         // don't add to the battleLog if the attackData object is empty
         if (Object.keys(attackData).length > 0) {
+            // how many rows in the battle log
+            let battleLogLength = 5
 
-            setBattleLog((prev) => [...prev, attackData].slice(-5))
+            // set battle log state to only be the last 5 elements of the array
+            setBattleLog((prev) => [...prev, attackData].slice(-battleLogLength))
         }
-    }, [move])
+    }, [move, attackData])
 
     // check if there is a winner, if there is then fade out and navigate to the winner page
     useEffect(() => {
@@ -461,16 +447,16 @@ export default function BattlePage3d() {
 
                     {/* ====== BATTLELOG ====== */}
                     {battleLog.length !== 0 && (
-                        <div className='absolute px-1 rounded bottom-0 right-0 bg-gray-800 text-white opacity-70'>
+                        <div className='absolute px-1 rounded bottom-0 right-0 bg-gray-800 text-white opacity-60 font-mono'>
                             {battleLog.map((data, index) => (
                                 <p
                                     key={index}
                                     className=''
                                 >
-                                    {data.attackerName} (Attack:{' '}
+                                    <span className='font-bold underline'>{data.attackerName}</span> (Attack:{' '}
                                     {data.attackScore}) attacked{' '}
-                                    {data.receiverName} (Defence:{' '}
-                                    {data.defenceScore}) using {data.moveName}{' '}
+                                    <span className='font-bold underline'>{data.receiverName}</span> (Defence:{' '}
+                                    {data.defenceScore}) using <span className='font-bold underline'>{data.moveName}</span>{' '}
                                     for a total damage of {data.totalDamage}
                                 </p>
                             ))}

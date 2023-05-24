@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { getEmoji } from '../utils/getEmoji'
 import { changeBackground } from '../utils/changeBackground'
 import { motion } from 'framer-motion'
-import bgImage from '../images/backgrounds/1.png'
+import bgImage from '../images/backgrounds'
 import WinnerOverlayContainer from '../components/WinnerOverlayContainer'
 import ConfettiExplosion from 'react-confetti-explosion';
 
