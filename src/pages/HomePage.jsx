@@ -54,7 +54,7 @@ export default function HomePage() {
             player1: playerData.player1,
             player2: playerData.player2,
         })
-        navigate('/battle')
+        navigate('/battle3d')
     }
 
     return (
@@ -62,7 +62,7 @@ export default function HomePage() {
             {isLoading ? (
                 <LoadingPokeball />
             ) : (
-                <div className='bg-green-400/10 max-h-screen grid grid-rows-[auto_2fr_2fr] mb-3'>
+                <div className='max-h-screen max-w-7xl mx-auto grid grid-rows-[auto_2fr_2fr] mb-3'>
                     {/* <h1 className='text-5xl text-center p-2 font-pokemon-solid mb-4'>
                             Pokemon Battler
                         </h1> */}
@@ -73,7 +73,7 @@ export default function HomePage() {
                         className='mx-auto w-1/2 m-4'
                     />
 
-                    <div className='grid grid-cols-[1fr_auto_1fr] gap-3 px-2'>
+                    <div className='grid grid-cols-[1fr_auto_1fr] gap-5 px-2 items-center'>
                         <motion.div
                             className={`drop-shadow-lg ${
                                 activePlayer === 1
@@ -93,7 +93,7 @@ export default function HomePage() {
                             )}
                         </motion.div>
 
-                        <div className='self-center justify-center text-5xl flex flex-col'>
+                        <div className='self-center justify-center text-5xl flex flex-col space-y-3'>
                             <button
                                 onClick={startBattle}
                                 className='border-2 border-green-500 bg-green-500/10 px-4 py-2 rounded-lg hover:bg-green-500 hover:text-white active:bg-green-400 md:mx-auto'

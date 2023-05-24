@@ -259,7 +259,7 @@ export default function BattlePage3d() {
                             <img
                                 src={player2.sprites.aniFront}
                                 alt=''
-                                className={`${isDefenderBlinking && 'blink'} w-1/5 transition-opacity ease-in-out duration-300`}
+                                className={`${isDefenderBlinking && 'blink'} w-2/5 transition-opacity ease-in-out duration-300`}
                             />
                         </motion.div>
                     </div>
@@ -277,7 +277,7 @@ export default function BattlePage3d() {
                             <img
                                 src={player2.sprites.aniBack}
                                 alt=''
-                                className={` w-1/5 transition-opacity ease-in-out duration-300`}
+                                className={` w-2/5 transition-opacity ease-in-out duration-300`}
                             />
                         </motion.div>
                         {/* NAME AND HP */}
@@ -346,7 +346,7 @@ export default function BattlePage3d() {
                             <img
                                 src={player1.sprites.aniBack}
                                 alt=''
-                                className={`w-1/5 transition-opacity ease-in-out duration-300'}`}
+                                className={`w-2/5 transition-opacity ease-in-out duration-300'}`}
                             />
                         </motion.div>
                         {/* NAME AND HP */}
@@ -431,7 +431,7 @@ export default function BattlePage3d() {
                             <img
                                 src={player1.sprites.aniFront}
                                 alt=''
-                                className={`${isDefenderBlinking && 'blink'} w-1/5 transition-opacity ease-in-out duration-300`}
+                                className={`${isDefenderBlinking && 'blink'} w-2/5 transition-opacity ease-in-out duration-300`}
                             />
                         </motion.div>
                     </div>
