@@ -5,9 +5,9 @@ import { changeBackground } from '../utils/changeBackground'
 const PokemonCard = ({ playerNum, pokemon }) => {
 
     const containerClass = () => {
-        let border = playerNum === 1 ? 'border-red-600 border-2' : 'border-blue-600 border-2'
+        let border = playerNum === 1 ? 'border-red-600 border-4' : 'border-blue-600 border-4'
 
-        return `${border} rounded`
+        return `${border} rounded-lg`
     }
 
     function getClassName() {

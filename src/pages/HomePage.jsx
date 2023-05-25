@@ -11,7 +11,10 @@ import { useNavigate } from 'react-router-dom'
 import { motion, useAnimate } from 'framer-motion'
 import titleImage from '../images/title.png'
 
-import { HiOutlineArrowNarrowLeft, HiOutlineArrowNarrowRight } from 'react-icons/hi'
+import {
+    HiOutlineArrowNarrowLeft,
+    HiOutlineArrowNarrowRight,
+} from 'react-icons/hi'
 
 export default function HomePage() {
     const { getPokemon, isLoading } = useGetPokemon()
@@ -59,13 +62,26 @@ export default function HomePage() {
         navigate('/battle3d')
     }
 
+    const selectButtonContainerClass = () => {
+        let border =
+            activePlayer === 1
+                ? 'border-4 border-red-600 bg-red-600/20 hover:bg-red-600/30'
+                : 'border-4 border-blue-600 bg-blue-600/20 hover:bg-blue-600/30'
+
+        return `${border} rounded-lg`
+    }
+
+    const battleButtonStyles = () => {
+        // let styles = 
+
+    }
+
     return (
         <div>
             {isLoading ? (
                 <LoadingPokeball />
             ) : (
                 <div className='max-h-screen max-w-7xl mx-auto grid grid-rows-[auto_2fr_2fr] mb-3'>
-
                     {/* Title */}
                     <img
                         src={titleImage}
@@ -93,25 +109,26 @@ export default function HomePage() {
                             )}
                         </motion.div>
 
-                        <div className='self-center justify-center text-5xl flex flex-col space-y-3'>
-                            <button
-                                onClick={startBattle}
-                                className='border-2 border-green-500 bg-green-500/10 px-4 py-2 rounded-lg hover:bg-green-500 hover:text-white active:bg-green-400 md:mx-auto'
-                            >
-                                Battle!
-                            </button>
-                            <div className='text-center'>VS</div>
+                        <div className='self-center justify-center text-5xl flex flex-col space-y-5'>
                             <button
                                 onClick={handleChangeActivePlayer}
-                                className='border-2 border-pink-500 bg-pink-500/10 px-4 py-2 rounded-lg hover:bg-pink-500 hover:text-white active:bg-pink-400 md:mx-auto'
+                                // className='border-2 border-pink-500 bg-pink-500/10 px-4 py-2 rounded-lg hover:bg-pink-500 hover:text-white active:bg-pink-400 md:mx-auto'
+                                className={`flex flex-col items-center px-4 py-2 pt-5 rounded-lg  active:bg-pink-400 ${selectButtonContainerClass()}`}
                             >
+                                <span className='text-sm font-bold uppercase'>Select Player</span>
                                 {activePlayer === 1 ? (
-                                    
-                                        <HiOutlineArrowNarrowLeft />
-                                   
+                                    <HiOutlineArrowNarrowLeft />
                                 ) : (
                                     <HiOutlineArrowNarrowRight />
                                 )}
+                            </button>
+                            <div className='text-center'>VS</div>
+                            <button
+                                onClick={startBattle}
+                                className='relative border-2 border-green-500 bg-green-500/10 px-4 py-2 rounded-lg hover:bg-green-500 hover:text-white active:bg-green-400 flex items-center'
+                            >
+                                {/* <span class="animate-ping absolute h-full w-full rounded bg-green-400 opacity-100"></span> */}
+                                <span className='text-5xl flex flex-col upp'> <span>Battle!</span></span>
                             </button>
                         </div>
 
