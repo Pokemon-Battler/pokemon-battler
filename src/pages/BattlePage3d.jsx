@@ -70,7 +70,7 @@ export default function BattlePage3d() {
     // set battleLog
     useEffect(() => {
         // console.log(battleLog)
-        // console.log(attackData)
+        console.log(attackData)
 
         // don't add to the battleLog if the attackData object is empty
         if (Object.keys(attackData).length > 0) {
@@ -447,7 +447,7 @@ export default function BattlePage3d() {
 
                     {/* ====== BATTLELOG ====== */}
                     {battleLog.length !== 0 && (
-                        <div className='absolute px-1 rounded bottom-0 right-0 bg-gray-800 text-white opacity-60 font-mono'>
+                        <div className='absolute px-2 py-1 rounded bottom-0 right-0 bg-gray-800 text-white opacity-50 font-mono text-sm'>
                             {battleLog.map((data, index) => (
                                 <p
                                     key={index}
