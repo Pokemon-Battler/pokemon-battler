@@ -18,8 +18,9 @@ function findMatchingKey(type1, type2) {
 }
 
 
-
-
+function capitalizeMove(moveName) {
+    return moveName.split('-').map(word => capitalize(word)).join('-')
+}
 
 // This hook is for making attacks and updating the player stats to reflect the damage
 export function usePokemonBattle() {
@@ -28,33 +29,23 @@ export function usePokemonBattle() {
     const { playerDispatch } = useGlobalPlayerData()
 
     const [attackData, setAttackData] = useState({})
-    // let attackData = {}
-
-    const addAttackDataProperty = (key, val) => {
-        setAttackData(prevData => ({ ...prevData, [key]: val}))
-    }
     
     // function to crunch the all the data and generate a single attack damage number
     const calculateDamage = (move, attacker, receiver) => {
-        setAttackData({ attackerName: capitalize(attacker.name), receiverName: capitalize(receiver.name), moveName: capitalize(move.name)})
-
 
         // power of the move
         const power = move.power
         // setAttackData(prevData => ({ ...prevData , movePower: power }))
-        addAttackDataProperty('movePower', power)
 
         // attacker's attack score
         const attack_effective = attacker.stats.attack
-        addAttackDataProperty('attackScore', attack_effective)
 
         // defender's defence score
         const defence_effective = receiver.stats.defense
-        addAttackDataProperty('defenceScore', defence_effective)
+        // addAttackDataProperty('defenceScore', defence_effective)
 
         // random chance of a critical hit
         const critical = Math.random() < (Math.floor(Math.random() * 256) / 256) ? 2 : 1
-        // attackData.critical = critical
 
         // effectiveness multiplyer of the attack (against different types)
         let effect = 1
@@ -85,19 +76,26 @@ export function usePokemonBattle() {
 
         // Calculate the overall effectiveness of the move
         const effectiveness = (attacker.types.includes(move.type) ? 1.5 : 1) * effect
-        addAttackDataProperty('effectiveness', effectiveness)
+        // addAttackDataProperty('effectiveness', effectiveness)
 
         // randomiser to make the score slightly different each time
         const randomness = ((Math.floor(Math.random() * (255 - 217 + 1)) + 217) / 255)
 
-
-        // console.log(attackData)
-
-
         // official damage score algorithm
         const totalDamage = Math.floor(((((((2 * critical) / 5) + 2) * power * (attack_effective / defence_effective)) / 50) + 2) * effectiveness * randomness)
 
-        addAttackDataProperty('totalDamage', totalDamage)
+        console.log(capitalizeMove(move.name))
+
+        setAttackData({
+            attackerName: capitalize(attacker.name),
+            receiverName: capitalize(receiver.name),
+            moveName: capitalizeMove(move.name),
+            movePower: power,
+            attackScore: attack_effective, 
+            defenceScore: defence_effective, 
+            effectiveness, 
+            totalDamage
+        })
 
         // return the message to show in the UI, damage, and attackData for the battlelog
         return { response: response, damage: totalDamage, attackData }
