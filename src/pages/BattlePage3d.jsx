@@ -205,6 +205,19 @@ export default function BattlePage3d() {
                         backgroundSize: 'cover',
                     }}
                 >
+
+
+
+
+
+
+
+
+
+
+
+
+
                     {/* ==================== PLAYER 2 (defender) ======================== */}
                     <div
                         className={`card ${
@@ -329,6 +342,20 @@ export default function BattlePage3d() {
                         </div>
                     </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     {/* ==================== Player 1 (attacker) ======================== */}
                     <div
                         className={`card ${
@@ -452,8 +479,25 @@ export default function BattlePage3d() {
                     </div>
 
                     {/* ====== BATTLELOG ====== */}
-                    <BattleLog battleLog={battleLog} />
+                    {/* <BattleLog battleLog={battleLog} /> */}
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 {/* BATTLE UI */}
                 <div className='bg-cyan-700 grid grid-cols-2'>

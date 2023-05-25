@@ -23,13 +23,15 @@ const PokemonPickerList = ({ playerNum }) => {
             border = 'border-red-600 '
         } else if (playerData?.player2?.id === id) {
             border = 'border-blue-600 '
+        } else {
+            border = 'border-black/0' // so the border still takes up space and doesn't cause a shift when selected
         }
-        return `${border}flex items-center border-2 justify-center rounded bg-red-500/10 hover:bg-red-500/20`
+        return `${border} flex items-center border-4 justify-center rounded-lg bg-red-500/10 hover:bg-red-500/20`
     }
 
 
     return (
-        <div className='grid grid-cols-4 gap-2 p-2 mt-4 overflow-y-scroll'>
+        <div className='grid grid-cols-4 gap-2 p-2 mt-4 overflow-y-scroll border rounded-lg '>
             {pokemonList &&
                 pokemonList.map((pokemon, index) => (
                     <div

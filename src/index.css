@@ -4,7 +4,8 @@
 
 body {
     /* @apply bg-green-400/10  */
-    @apply bg-gradient-to-b from-green-500/20 to-orange-500/20
+    /* @apply bg-gradient-to-b from-green-500/20 to-orange-500/20 */
+    @apply bg-gradient-to-r from-red-500/40 to-blue-500/40
 
 }
 
@@ -41,17 +42,6 @@ body {
     animation: blink 0.2s infinite steps(1);
 }
 
-.progress-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 10px;
-    background: #6ee7b7d9;
-    transform-origin: 0%;
-    /* z-index: 20; */
-}
-
 .card {
     position: relative;
     perspective: 800px; /* Perspective for 3D effect */
@@ -59,16 +49,11 @@ body {
     transition: transform 0.7s linear;
 }
 
-.front,
-.back {
+.front, .back {
     position: absolute;
     width: 100%;
     height: 100%;
     backface-visibility: hidden; /* Hide the back face initially */
-}
-
-.front {
-    /* background-color: blue; */
 }
 
 .back {
@@ -79,13 +64,11 @@ body {
 }
 
 .flip-move-down {
-    transform: rotateY(
-        180deg
-    ) translateY(100%); /* Rotate the card on hover to reveal the back face */
+    transform: rotateY(180deg) translateY(100%); /* Rotate the card to reveal the back face and translate down */
 }
 
 .flip-move-up {
     transform: rotateY(
         180deg
-    ) translateY(-100%); /* Rotate the card on hover to reveal the back face */
+    ) translateY(-100%); /* Rotate the card to reveal the back face and translate up */
 }
