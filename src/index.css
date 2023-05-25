@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 body {
-    @apply bg-green-400/10 
+    /* @apply bg-green-400/10  */
+    @apply bg-gradient-to-b from-green-500/20 to-orange-500/20
+
 }
 
 /* ====== Fonts ====== */
