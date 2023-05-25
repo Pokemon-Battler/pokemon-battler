@@ -94,7 +94,8 @@ export function usePokemonBattle() {
             attackScore: attack_effective, 
             defenceScore: defence_effective, 
             effectiveness, 
-            totalDamage
+            totalDamage,
+            attackTime: new Date().toLocaleTimeString().replace(/ (AM|PM)/, '')
         })
 
         // return the message to show in the UI, damage, and attackData for the battlelog

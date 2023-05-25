@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom'
 import { motion, useAnimate } from 'framer-motion'
 import titleImage from '../images/title.png'
 
+import { HiOutlineArrowNarrowLeft, HiOutlineArrowNarrowRight } from 'react-icons/hi'
+
 export default function HomePage() {
     const { getPokemon, isLoading } = useGetPokemon()
     const { pokemonList } = useGlobalPokemonData()
@@ -63,17 +65,15 @@ export default function HomePage() {
                 <LoadingPokeball />
             ) : (
                 <div className='max-h-screen max-w-7xl mx-auto grid grid-rows-[auto_2fr_2fr] mb-3'>
-                    {/* <h1 className='text-5xl text-center p-2 font-pokemon-solid mb-4'>
-                            Pokemon Battler
-                        </h1> */}
 
+                    {/* Title */}
                     <img
                         src={titleImage}
                         alt=''
-                        className='mx-auto w-1/2 m-4'
+                        className='mx-auto w-1/2 mt-4'
                     />
 
-                    <div className='grid grid-cols-[1fr_auto_1fr] gap-5 px-2 items-center'>
+                    <div className='grid grid-cols-[1fr_auto_1fr] gap-6 px-2 items-center max-w-[90%] mx-auto'>
                         <motion.div
                             className={`drop-shadow-lg ${
                                 activePlayer === 1
@@ -106,17 +106,11 @@ export default function HomePage() {
                                 className='border-2 border-pink-500 bg-pink-500/10 px-4 py-2 rounded-lg hover:bg-pink-500 hover:text-white active:bg-pink-400 md:mx-auto'
                             >
                                 {activePlayer === 1 ? (
-                                    <span
-                                        dangerouslySetInnerHTML={{
-                                            __html: '&larr;',
-                                        }}
-                                    />
+                                    
+                                        <HiOutlineArrowNarrowLeft />
+                                   
                                 ) : (
-                                    <span
-                                        dangerouslySetInnerHTML={{
-                                            __html: '&rarr;',
-                                        }}
-                                    />
+                                    <HiOutlineArrowNarrowRight />
                                 )}
                             </button>
                         </div>
