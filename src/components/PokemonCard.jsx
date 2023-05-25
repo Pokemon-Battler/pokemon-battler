@@ -18,7 +18,7 @@ const PokemonCard = ({ playerNum, pokemon }) => {
     return (
         <div className={getClassName()}>
             {pokemon && (
-                <div className='flex flex-col gap-2 px-2 relative'>
+                <div className='flex flex-col gap-2 px-3 py-2 relative'>
                     <div className='flex items-center justify-between'>
                         <p>Player {playerNum}</p>
                         <p className='text-4xl font-semibold'>

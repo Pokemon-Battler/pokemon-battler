@@ -10,6 +10,7 @@ import bgImages from '../images/backgrounds'
 import { pickRandom } from '../utils/helperFunctions'
 import WinnerOverlayContainer from '../components/WinnerOverlayContainer'
 import ConfettiExplosion from 'react-confetti-explosion'
+import BattleLog from '../components/BattleLog'
 
 export default function BattlePage3d() {
     // Hook to navigate to a different page
@@ -54,6 +55,11 @@ export default function BattlePage3d() {
         return new Promise((resolve) => setTimeout(resolve, ms))
     }
 
+    // utitlity function to check if o
+    const isObjectEmpty = (obj) => {
+        return Object.keys(obj).length === 0
+    }
+
     // Check if there is a winner
     const checkWinner = () => {
         const { player1, player2 } = playerData
@@ -73,7 +79,7 @@ export default function BattlePage3d() {
         console.log(attackData)
 
         // don't add to the battleLog if the attackData object is empty
-        if (Object.keys(attackData).length > 0) {
+        if (!isObjectEmpty(attackData)) {
             // how many rows in the battle log
             let battleLogLength = 5
 
@@ -446,22 +452,7 @@ export default function BattlePage3d() {
                     </div>
 
                     {/* ====== BATTLELOG ====== */}
-                    {battleLog.length !== 0 && (
-                        <div className='absolute px-2 py-1 rounded bottom-0 right-0 bg-gray-800 text-white opacity-50 font-mono text-sm'>
-                            {battleLog.map((data, index) => (
-                                <p
-                                    key={index}
-                                    className=''
-                                >
-                                    <span className='font-bold underline'>{data.attackerName}</span> (Attack:{' '}
-                                    {data.attackScore}) attacked{' '}
-                                    <span className='font-bold underline'>{data.receiverName}</span> (Defence:{' '}
-                                    {data.defenceScore}) using <span className='font-bold underline'>{data.moveName}</span>{' '}
-                                    for a total damage of {data.totalDamage}
-                                </p>
-                            ))}
-                        </div>
-                    )}
+                    <BattleLog battleLog={battleLog} />
                 </div>
 
                 {/* BATTLE UI */}
