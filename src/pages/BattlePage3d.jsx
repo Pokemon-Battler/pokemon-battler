@@ -479,7 +479,7 @@ export default function BattlePage3d() {
                     </div>
 
                     {/* ====== BATTLELOG ====== */}
-                    {/* <BattleLog battleLog={battleLog} /> */}
+                    <BattleLog battleLog={battleLog} />
                 </div>
 
 
