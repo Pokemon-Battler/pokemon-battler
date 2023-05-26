@@ -71,10 +71,9 @@ export default function HomePage() {
         return `${border} rounded-lg`
     }
 
-    const battleButtonStyles = () => {
-        // let styles = 
+    // const battleButtonStyles = () => {
 
-    }
+    // }
 
     return (
         <div>
