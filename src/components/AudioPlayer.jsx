@@ -57,8 +57,8 @@ const AudioPlayer = () => {
     const setAudioSrc = (trackname) => {
         console.log('PUBLIC_URL: ', process.env.PUBLIC_URL)
 
-        let path = process.env.PUBLIC_URL || 'http://localhost:3000'
-        let fullUrl = path + '/audio/' + trackname
+        // let path = process.env.PUBLIC_URL || 'http://localhost:3000'
+        let fullUrl = '/audio/' + trackname
         // console.log(fullUrl)
 
         ref.current.src = fullUrl
