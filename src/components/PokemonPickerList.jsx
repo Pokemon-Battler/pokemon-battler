@@ -15,23 +15,24 @@ const PokemonPickerList = ({ playerNum }) => {
 
     // update picker div borders based on selection
     const checkSelection = (id) => {
-        let border = ''
+        let borderColor = ''
 
         if (playerData?.player1?.id === id && playerData?.player2?.id === id) {
-            border = 'border-purple-600 '
+            borderColor = 'border-purple-600 '
         } else if (playerData?.player1?.id === id) {
-            border = 'border-red-600 '
+            borderColor = 'border-red-600 '
         } else if (playerData?.player2?.id === id) {
-            border = 'border-blue-600 '
+            borderColor = 'border-blue-600 '
         } else {
-            border = 'border-black/0' // so the border still takes up space and doesn't cause a shift when selected
+            borderColor = 'border-black/0' // so the border still takes up space and doesn't cause a shift when selected
         }
-        return `${border} flex items-center border-4 justify-center rounded-lg bg-red-500/10 hover:bg-red-500/20`
+        // 
+        return `border-4 ${borderColor} flex items-center justify-center rounded-lg bg-teal-500/10 hover:bg-teal-500/30`
     }
 
 
     return (
-        <div className='grid grid-cols-4 gap-2 p-2 mt-4 overflow-y-scroll border rounded-lg '>
+        <div className='grid grid-cols-4 gap-2 p-2 mt-4 overflow-y-scroll border rounded-lg bg-white/60'>
             {pokemonList &&
                 pokemonList.map((pokemon, index) => (
                     <div
