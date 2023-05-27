@@ -5,10 +5,14 @@ import HomePage from './pages/HomePage'
 import RotateTest from './pages/RotateTest'
 import BattlePage3d from './pages/BattlePage3d'
 
-function App() {
+import AudioPlayer from './components/AudioPlayer'
 
+function App() {
     return (
         <BrowserRouter>
+            <div className='fixed top-0 right-0 m-1 z-20'>
+                <AudioPlayer />
+            </div>
             <Routes>
                 <Route path='/' element={<HomePage />} />
                 <Route path='/battle' element={<BattlePage />} />
