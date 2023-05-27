@@ -29,7 +29,7 @@ const trackNames = [
 const AudioPlayer = () => {
     const [audio, state, controls, ref] = useAudio({
         src: '/audio/gen1.mp3',
-        autoPlay: false, // very inconsistent. not sure why
+        autoPlay: true, // very inconsistent. not sure why
     })
 
     const [volumeLevel, setVolumeLevel] = useState(2) // 0 is off, 3 is maximum
@@ -40,13 +40,13 @@ const AudioPlayer = () => {
                 controls.volume(0)
                 break
             case 1:
-                controls.volume(0.1)
+                controls.volume(0.2)
                 break
             case 2:
-                controls.volume(0.5)
+                controls.volume(0.4)
                 break
             case 3:
-                controls.volume(1)
+                controls.volume(0.8)
         }
         setVolumeLevel((prevVolumeLevel) => (prevVolumeLevel + 1) % 4)
     }
@@ -104,6 +104,9 @@ const AudioPlayer = () => {
         // console.log(ref.current)
 
         setAudioSrc('gen6.mp3')
+        controls.volume(0.4)
+
+        console.log(state)
     }, [])
 
     return (
