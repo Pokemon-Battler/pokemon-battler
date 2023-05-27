@@ -29,7 +29,7 @@ const trackNames = [
 const AudioPlayer = () => {
     const [audio, state, controls, ref] = useAudio({
         src: '/audio/gen1.mp3',
-        autoPlay: true, // very inconsistent. not sure why
+        autoPlay: false, // very inconsistent. not sure why
     })
 
     const [volumeLevel, setVolumeLevel] = useState(2) // 0 is off, 3 is maximum
@@ -55,6 +55,8 @@ const AudioPlayer = () => {
     }
 
     const setAudioSrc = (trackname) => {
+        console.log('PUBLIC_URL: ', process.env.PUBLIC_URL)
+
         let path = process.env.PUBLIC_URL || 'http://localhost:3000'
         let fullUrl = path + '/audio/' + trackname
         // console.log(fullUrl)
@@ -107,6 +109,7 @@ const AudioPlayer = () => {
     useEffect(() => {
         // console.log(state)
         // console.log(ref.current)
+
 
         setAudioSrc('gen6.mp3')
         controls.volume(0.4)
