@@ -85,7 +85,7 @@ export default function HomePage() {
                     <img
                         src={titleImage}
                         alt=''
-                        className='mx-auto w-1/2 mt-4'
+                        className='mx-auto w-1/2 mt-6'
                     />
 
                     <div className='grid grid-cols-[1fr_auto_1fr] gap-6 px-2 items-center max-w-[90%] mx-auto'>

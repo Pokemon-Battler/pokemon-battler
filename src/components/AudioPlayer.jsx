@@ -11,34 +11,28 @@ import {
 
 import { HiPlay, HiStop } from 'react-icons/hi2'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
+
+// import { gen1, gen2, gen3, gen4, gen5, gen6, gen7, gen8 } from '../audio'
 
 const trackNames = [
-    'Original',
-    'Fantasy',
-    'Adventure',
-    'Disco',
-    'Funk',
-    '80s Vibe',
-    'Reggae',
-    'Trance',
-    'Beatbox',
-    '8-Bit',
-    'Futuristic',
-    'Indie Pop',
-    'Christmas',
-    'Halloween',
+    'Gen 1 - Kanto',
+    'Gen 2 - Johto',
+    'Gen 3 - Hoenn',
+    'Gen 4 - Sinnoh',
+    'Gen 5 - Unova',
+    'Gen 6 - Kalos',
+    'Gen 7 - Alola',
+    'Gen 8 - Galar',
 ]
 
 const AudioPlayer = () => {
     const [audio, state, controls, ref] = useAudio({
-        src: '/audio/funk.mp3',
-        autoPlay: true, // very inconsistent. not sure why
+        src: '/audio/gen1.mp3',
+        autoPlay: false, // very inconsistent. not sure why
     })
 
-    // const playButtonRef = useRef(null)
-
-    const [volumeLevel, setVolumeLevel] = useState(3) // 0 is off, 3 is maximum
+    const [volumeLevel, setVolumeLevel] = useState(2) // 0 is off, 3 is maximum
 
     const handleSpeakerClick = (e) => {
         switch ((volumeLevel + 1) % 4) {
@@ -57,12 +51,26 @@ const AudioPlayer = () => {
         setVolumeLevel((prevVolumeLevel) => (prevVolumeLevel + 1) % 4)
     }
 
+    const setAudioSrc = (trackname) => {
+        let path = process.env.PUBLIC_URL || 'http://localhost:3000'
+        let fullUrl = path + '/audio/' + trackname
+        // console.log(fullUrl)
+
+        ref.current.src = fullUrl
+    }
+
+
     const handleTrackSelect = (e) => {
         let trackName = e.target.value
-        trackName = trackName.toLowerCase().replace(' ', '-')
+
+        // convert displayed track name to mp3 title for example 'Gen 1 - Kanto' -> 'gen1'
+        trackName = trackName.toLowerCase().replace(/ /g, '').split('-')[0] 
         // console.log(trackName)
-        ref.current.src = `/audio/${trackName}.mp3`
-        // controls.play()
+        trackName += '.mp3'
+
+        setAudioSrc(trackName)
+
+        controls.play()
         // console.log(ref.current)
     }
 
@@ -84,18 +92,18 @@ const AudioPlayer = () => {
     const handlePlayButton = () => {
         if (state.playing) {
             controls.pause()
-            controls.seek(0)
+            controls.seek(0) // set playhead back to the start
         } else {
             controls.play()
         }
     }
 
+    
     useEffect(() => {
         // console.log(state)
         // console.log(ref.current)
-        // controls.play()
-        // playButtonRef.current.click()
-        ref.current.src = `/audio/funk.mp3`
+
+        setAudioSrc('gen6.mp3')
     }, [])
 
     return (
@@ -109,7 +117,7 @@ const AudioPlayer = () => {
             <button
                 onClick={handlePlayButton}
                 // ref={playButtonRef}
-                className='px-2 py-1 text-sm text-[#6ee7b7] border border-[#6ee7b7]/50 rounded bg-transparent '
+                className='px-2 py-1 text-sm text-orange text-orange-600 border border-orange-600 rounded bg-transparent '
             >
                 {state.playing ? <HiStop size={20} /> : <HiPlay size={20} />}
             </button>
@@ -117,8 +125,8 @@ const AudioPlayer = () => {
             <select
                 onChange={handleTrackSelect}
                 name='trackName'
-                defaultValue='Funk'
-                className='p-0 py-1 pl-2 text-[#6ee7b7] text-sm border border-[#6ee7b7]/50 rounded bg-transparent min-w-[110px] focus:outline-none focus:ring-0  focus:border-[#6ee7b7]'
+                defaultValue='Gen 6 - Kalos'
+                className='p-0 py-1 pl-2 text-orange-600 text-sm border border-orange-600/50 rounded bg-transparent min-w-[110px] focus:outline-none focus:ring-0  focus:border-orange-600'
             >
                 {trackNames.map((trackName, index) => (
                     <option
@@ -133,26 +141,11 @@ const AudioPlayer = () => {
 
             <button
                 onClick={() => handleSpeakerClick()}
-                style={{ color: '#6ee7b7' }}
-                className='ml-2'
+                // style={{ color: 'orange' }}
+                className='ml-2 text-orange-600'
             >
                 {speakerIcon()}
             </button>
-
-            {/* <br />
-            <button onClick={controls.mute}>Mute</button>
-            <button onClick={controls.unmute}>Un-mute</button> */}
-            {/* <br />
-            <button onClick={() => controls.volume(0.1)}>Volume: 10%</button>
-            <button onClick={() => controls.volume(0.5)}>Volume: 50%</button>
-            <button onClick={() => controls.volume(1)}>Volume: 100%</button>
-            <br />
-            <button onClick={() => controls.seek(state.time - 5)}>
-                -5 sec
-            </button>
-            <button onClick={() => controls.seek(state.time + 5)}>
-                +5 sec
-            </button> */}
         </div>
     )
 }
