@@ -47,6 +47,9 @@ const AudioPlayer = () => {
                 break
             case 3:
                 controls.volume(0.8)
+                break
+            default:
+                break
         }
         setVolumeLevel((prevVolumeLevel) => (prevVolumeLevel + 1) % 4)
     }
@@ -86,6 +89,8 @@ const AudioPlayer = () => {
                 return <RxSpeakerModerate size={size} />
             case 3:
                 return <RxSpeakerLoud size={size} />
+            default:
+                return
         }
     }
 
@@ -107,6 +112,7 @@ const AudioPlayer = () => {
         controls.volume(0.4)
 
         console.log(state)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
