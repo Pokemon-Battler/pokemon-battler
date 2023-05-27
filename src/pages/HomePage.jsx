@@ -124,7 +124,7 @@ export default function HomePage() {
                             <div className='text-center'>VS</div>
                             <button
                                 onClick={startBattle}
-                                className='relative border-2 border-green-500 bg-green-500/10 px-4 py-2 rounded-lg hover:bg-green-500 hover:text-white active:bg-green-400 flex items-center'
+                                className='relative border-2 border-green-500 bg-green-500/20 px-4 py-2 rounded-lg hover:bg-green-500 hover:text-white active:bg-green-400 flex items-center'
                             >
                                 {/* <span class="animate-ping absolute h-full w-full rounded bg-green-400 opacity-100"></span> */}
                                 <span className='text-5xl flex flex-col upp'> <span>Battle!</span></span>
